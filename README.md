@@ -13,11 +13,12 @@
   - Node.js with Express.js
   - TypeScript
   - MongoDB for the database
-  - Mongoose for ODM
 
 ## Installation
 
 1. Clone the repository:
+
+ https://github.com/Aso200/E-commerce.git
 
 
 
