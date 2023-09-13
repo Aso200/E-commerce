@@ -11,7 +11,7 @@
 
 - **Backend**:
   - Node.js with Express.js
-  - TypeScript
+  - Javascript
   - MongoDB for the database
 
 ## Installation
