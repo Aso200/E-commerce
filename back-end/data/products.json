@@ -1,0 +1,22 @@
+{
+    "clothing": [
+      {
+        "name": "Adidas Mjukis",
+        "price": 50,
+        "size": "M",
+        "id" : 1
+      },
+      {
+        "name": "Gucci Keps",
+        "price": 3000,
+        "size": "L",
+        "id" : 2
+      },
+      {
+        "name": "Champion Tracksuit",
+        "price": 999,
+        "size": "S",
+        "id" : 3
+      }
+    ]
+  }
