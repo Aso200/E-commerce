@@ -3,46 +3,82 @@ import './App.css';
 import Mainpage from './Mainpage/Mainpage';
 import Products from './Products/Products';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Cart from './Cart/Cart';
-
+import Product from './Products/Product';
+import Header from './Header';
+import CartPaymentPage from './CartPayment/CartPaymentPage';
 
 function App() {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<Product[]>(() => {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
   const [products, setProducts] = useState<Product[]>([]);
 
+const addToCart = (productToAdd: Product) => {
+  // Check if the product is already in the cart
+  const existingProductIndex = cart.findIndex(
+    (product) => product.id === productToAdd.id
+  );
 
-  const addToCart = (product: Product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
-  // funktionen förväntar sig något som är av typen 'product', setcart uppdaterar state-värdet, den tar tidigare carten (prevCart) och slår ihop den med en ny cart (product)
-  
+  if (existingProductIndex !== -1) {
+    // If the product is already in the cart, update its quantity
+    const updatedCart = [...cart];
+    updatedCart[existingProductIndex] = {
+      ...updatedCart[existingProductIndex],
+      quantity: updatedCart[existingProductIndex].quantity + 1,
+    };
+    setCart(updatedCart);
+  } else {
+    // If the product is not in the cart, add it with a quantity of 1
+    setCart([...cart, { ...productToAdd, quantity: 1 }]);
+  }
+};
 
-  useEffect(() => {
-    fetch('http://localhost:3000/products/products')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.clothing);
-        setProducts(data.clothing);
-      });
-  }, []);
+
+useEffect(() => {
+  // Load cart data from localStorage on component mount
+  const storedCart = localStorage.getItem('cart');
+  if (storedCart) {
+    setCart(JSON.parse(storedCart));
+  }
+
+  fetch('http://localhost:3000/products/products')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.clothing);
+      setProducts(data.clothing);
+    });
+}, []);
+
+useEffect(() => {
+  // Save cart data to localStorage whenever it changes
+  localStorage.setItem('cart', JSON.stringify(cart));
+}, [cart]);
 
   return (
     <Router>
       <Routes>
-        <Route path="/products" element={
-          <div>
-            <Products products={products} addToCart={addToCart} />
-            <Cart cart={cart} />
-          </div>
-        } />
+        <Route
+          path="/products"
+          element={
+            <div>
+                  <Header cart={cart} />
+              <Products products={products} addToCart={addToCart} />
+            </div>
+          }
+        />
         <Route path="/" element={<Mainpage />} />
+        <Route
+        path='/CartPaymentPage'
+        element={
+          <div>
+            <Header cart={cart}/>
+        <CartPaymentPage cart={cart}/>
+        </div>
+        }/>
       </Routes>
     </Router>
   );
 }
 
 export default App;
-
-// Två huvudsidor än så länge, products och mainpage, det finns 2 states vilket är cart för att hantera varukorgen och products för att spara produktdatan som hämtas från backend.
-// med useeffect hämtar vi produktdata
-// path / betyder att det är huvudsidan och den printar bara mainpage så länge.

@@ -1,9 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import MiniCart from './Cart/MiniCart';
 
-function Header() {
+function Header({ cart }) {
   return (
     <div>
-      <h2>Madagascar</h2>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <h2 style={{ cursor: "pointer", color: "black" }}>Madagascar</h2>
+      </Link>
+      <MiniCart cart={cart} /> {/* Pass the cart prop to MiniCart */}
     </div>
   );
 }

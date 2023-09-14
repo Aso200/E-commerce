@@ -1,3 +1,71 @@
-#cartWrapper {
-    color: black;
+#miniCart {
+    width: 350px;
 }
+#shoppingCartIcon {
+    width: 50px;
+    cursor: pointer;
+    text-align: center;
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.CartInformation {
+    height: 0px;
+    overflow: hidden;
+    width: 350px;
+}
+.CartWrap {
+    border: 0px !important;
+    width: 350px;
+    height: 0px;
+    overflow: hidden;
+}
+.CartWrapShow {
+  background-color: white;
+  position: absolute;
+  z-index: 3;
+    transition: height 0.5s;
+    height: 250px;
+    border: 2px solid black !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+  }
+  
+  
+.CartInformationShow {
+    display: block !important;
+    height: auto;
+}
+
+#checkOutButton {
+  width: 200px;
+  cursor: pointer;
+  position: relative; /* Set the position to absolute */
+  bottom: 0; /* Place at the bottom */
+  left: 0; /* Place at the left */
+  margin-left: 75px; /* Optional margin from the left edge */
+  font-size: 20px;
+}
+
+
