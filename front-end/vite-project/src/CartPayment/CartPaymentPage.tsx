@@ -54,7 +54,7 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
                 <div>
                   <p>Name: {cartItem.name}</p>
                   <p>Price: {cartItem.price} kr</p>
-                  <p>Size: {cartItem.size}</p>
+                  <p>Size: {cartItem.selectedSize}</p>
                 </div>
                 <div>
                   <p>Quantity: {cartItem.quantity}</p>
@@ -71,8 +71,9 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
             </div>
             <button id='payBtn'>Proceed</button>
           </div>
-        </div>
-      </div>
+    
+    </div>
+    </div>
     </div>
   );
 }

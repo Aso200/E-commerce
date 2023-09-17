@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Product from '../Products/Product';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './Cart.css';
 import { Link } from 'react-router-dom';
+import Product from '../Products/Product';
 
 export interface CartItems extends Product {
   quantity: number;
@@ -28,26 +28,30 @@ function MiniCart(props: CartProps) {
     }
     return totalPrice;
   };
+
   const calculateCartItemPrice = (cartItem: CartItems) => {
     return cartItem.price * cartItem.quantity;
   };
 
   return (
     <div>
-      <div id='miniCart'>
-        <button id='shoppingCartIcon' style={{ textAlign: 'center' }} onClick={toggleClassName}>
+      <div id="miniCart">
+        <button id="shoppingCartIcon" style={{ textAlign: 'center' }} onClick={toggleClassName}>
           <ShoppingCartIcon />
         </button>
         <div className={`CartWrap ${isActive ? 'CartWrapShow' : ''}`}>
           {cart.map((cartItem, index) => (
             <div key={index} className={`CartInformation ${isActive ? 'CartInformationShow' : ''}`}>
               <p>{cartItem.name}</p>
-              <p>Quantity {cartItem.quantity}st / {calculateCartItemPrice(cartItem)} kr</p>
+              <p>Size: {cartItem.selectedSize}</p>
+              <p>
+                Quantity {cartItem.quantity}st / {calculateCartItemPrice(cartItem)} kr
+              </p>
             </div>
           ))}
           <p>Total price: {calculateTotalPrice()} kr</p>
           <Link to="/CartPaymentPage">
-          <button id='checkOutButton'>Checkout</button>
+            <button id="checkOutButton">Checkout</button>
           </Link>
         </div>
       </div>
