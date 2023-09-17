@@ -8,6 +8,9 @@ import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 
 function App() {
+  const updateCart = (updatedCart: Product[]) => {
+    setCart(updatedCart);
+  };
   const [cart, setCart] = useState<Product[]>(() => {
     const storedCart = localStorage.getItem('cart');
     return storedCart ? JSON.parse(storedCart) : [];
@@ -15,13 +18,11 @@ function App() {
   const [products, setProducts] = useState<Product[]>([]);
 
 const addToCart = (productToAdd: Product) => {
-  // Check if the product is already in the cart
   const existingProductIndex = cart.findIndex(
     (product) => product.id === productToAdd.id
   );
 
   if (existingProductIndex !== -1) {
-    // If the product is already in the cart, update its quantity
     const updatedCart = [...cart];
     updatedCart[existingProductIndex] = {
       ...updatedCart[existingProductIndex],
@@ -29,7 +30,6 @@ const addToCart = (productToAdd: Product) => {
     };
     setCart(updatedCart);
   } else {
-    // If the product is not in the cart, add it with a quantity of 1
     setCart([...cart, { ...productToAdd, quantity: 1 }]);
   }
 };
@@ -73,7 +73,7 @@ useEffect(() => {
         element={
           <div>
             <Header cart={cart}/>
-        <CartPaymentPage cart={cart}/>
+        <CartPaymentPage cart={cart} updateCart={updateCart}/>
         </div>
         }/>
       </Routes>

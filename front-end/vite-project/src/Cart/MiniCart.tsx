@@ -13,15 +13,15 @@ interface CartProps {
 }
 
 function MiniCart(props: CartProps) {
+  console.log("hej")
   const [isActive, setIsActive] = useState(false);
-
   const { cart } = props;
 
   const toggleClassName = () => {
     setIsActive(!isActive);
   };
 
-  const calculateTotalPrice = () => {
+ const calculateTotalPrice = () => {
     let totalPrice = 0;
     for (const cartItem of cart) {
       totalPrice += cartItem.price * cartItem.quantity;
