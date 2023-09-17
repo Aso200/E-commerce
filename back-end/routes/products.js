@@ -16,7 +16,6 @@ router.get('/products', function (req, res, next) {
     }
     
     const products = JSON.parse(data);
-    console.log("hej")
     res.json(products);
   });
 });

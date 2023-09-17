@@ -3,57 +3,59 @@ import './App.css';
 import Mainpage from './Mainpage/Mainpage';
 import Products from './Products/Products';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Product from './Products/Product';
 import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 
 function App() {
   const [cart, setCart] = useState<Product[]>(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
+    try {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error);
+      return [];
+    }
   });
-  const [products, setProducts] = useState<Product[]>([]);
 
-const addToCart = (productToAdd: Product) => {
-  // Check if the product is already in the cart
-  const existingProductIndex = cart.findIndex(
-    (product) => product.id === productToAdd.id
-  );
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  if (existingProductIndex !== -1) {
-    // If the product is already in the cart, update its quantity
-    const updatedCart = [...cart];
-    updatedCart[existingProductIndex] = {
-      ...updatedCart[existingProductIndex],
-      quantity: updatedCart[existingProductIndex].quantity + 1,
-    };
-    setCart(updatedCart);
-  } else {
-    // If the product is not in the cart, add it with a quantity of 1
-    setCart([...cart, { ...productToAdd, quantity: 1 }]);
-  }
-};
+  useEffect(() => {
+    fetch('http://localhost:3000/products/products/')
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data.categories);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
+  const addToCart = (productToAdd: Product) => {
+    const existingProductIndex = cart.findIndex(
+      (product) => product.id === productToAdd.id && product.selectedSize === productToAdd.selectedSize
+    );
 
-useEffect(() => {
-  // Load cart data from localStorage on component mount
-  const storedCart = localStorage.getItem('cart');
-  if (storedCart) {
-    setCart(JSON.parse(storedCart));
-  }
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex] = {
+        ...updatedCart[existingProductIndex],
+        quantity: updatedCart[existingProductIndex].quantity + 1,
+      };
+      setCart(updatedCart);
+    } else {
+      const updatedCart = [
+        ...cart,
+        { ...productToAdd, quantity: 1, selectedSize: productToAdd.selectedSize },
+      ];
 
-  fetch('http://localhost:3000/products/products')
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data.clothing);
-      setProducts(data.clothing);
-    });
-}, []);
-
-useEffect(() => {
-  // Save cart data to localStorage whenever it changes
-  localStorage.setItem('cart', JSON.stringify(cart));
-}, [cart]);
+      try {
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        setCart(updatedCart);
+      } catch (error) {
+        console.error('Error saving cart to localStorage:', error);
+      }
+    }
+  };
 
   return (
     <Router>
@@ -62,20 +64,21 @@ useEffect(() => {
           path="/products"
           element={
             <div>
-                  <Header cart={cart} />
-              <Products products={products} addToCart={addToCart} />
+              <Header cart={cart} />
+              <Products categories={categories} addToCart={addToCart} />
             </div>
           }
         />
         <Route path="/" element={<Mainpage />} />
         <Route
-        path='/CartPaymentPage'
-        element={
-          <div>
-            <Header cart={cart}/>
-        <CartPaymentPage cart={cart}/>
-        </div>
-        }/>
+          path="/CartPaymentPage"
+          element={
+            <div>
+              <Header cart={cart} />
+              <CartPaymentPage cart={cart} />
+            </div>
+          }
+        />
       </Routes>
     </Router>
   );
