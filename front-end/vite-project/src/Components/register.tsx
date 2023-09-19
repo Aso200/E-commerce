@@ -74,16 +74,7 @@ function Registration() {
         });
 
         if (response.ok) {
-
-          const userData = {
-            name,
-            email,
-            phoneNumber,
-            address,
-          };
-
-          localStorage.setItem(email, JSON.stringify(userData))
-
+          
           console.log('Registration successful');
         } else {
           console.error('Registration failed');

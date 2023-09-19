@@ -1,21 +1,50 @@
-import React, { useState, ChangeEvent } from 'react';
+import  { useState, ChangeEvent, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
-import BasicButtons from './Buttons';
 
-interface LoginProps {}
+interface LoginProps { }
 
 function Login(props: LoginProps) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (email === 'user@gmail.com' && password === 'password') {
-      navigate('/dashboard');
-    } else {
-      alert('Login failed. Please try again.');
+
+  useEffect(() => {
+    localStorage.setItem('savedEmail', email);
+  }, [email]);
+
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem('savedEmail');
+    if (savedEmail) {
+      setEmail(savedEmail);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+
+        navigate('/dashboard');
+      } else {
+
+        alert('Login failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
     }
   };
 
@@ -55,7 +84,7 @@ function Login(props: LoginProps) {
         />
       </Box>
 
-      <BasicButtons onClick={handleLogin} />
+      <button onClick={handleLogin}>Login</button>
     </>
   );
 }
