@@ -26,9 +26,9 @@ connectToMongoDB();
 router.use(cors());
 
 router.post("/register", async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phoneNumber,
+    address, } = req.body;
 
-  console.log('ssss');
   try {
     const collection = client.db("customerdb").collection("customers");
     const existingUser = await collection.findOne({ email });
@@ -37,7 +37,7 @@ router.post("/register", async (req, res, next) => {
         .status(400)
         .json({ message: "User with this email already exists" });
     }
-    await collection.insertOne({ name, email, password });
+    await collection.insertOne({ name, email, password, phoneNumber, address });
 
     res.status(201).json({ message: "Registration successful" });
   } catch (error) {
