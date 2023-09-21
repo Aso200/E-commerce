@@ -13,12 +13,12 @@ interface ProductsProps {
 }
 
 function Products({ categories, addToCart }: ProductsProps) {
-  const totalProductsCount = categories.reduce(
-    (total, category) => total + category.products.length,
-    0
-  );
+  if (!categories || categories.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   const [selectedSizes, setSelectedSizes] = useState<{ [productId: number]: string }>({});
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleSizeChange = (productId: number, event: React.ChangeEvent<{ value: string }>) => {
     const newSize = event.target.value;
@@ -28,6 +28,12 @@ function Products({ categories, addToCart }: ProductsProps) {
     }));
   };
 
+  const filteredProducts = selectedCategory
+    ? categories.find((category) => category.name === selectedCategory)?.products || []
+    : categories.flatMap((category) => category.products);
+
+  const totalProductsCount = filteredProducts.length;
+
   return (
     <div className="products-container">
       <div className="categories">
@@ -36,13 +42,24 @@ function Products({ categories, addToCart }: ProductsProps) {
         </div>
         <ul>
           <li>
-            <h3>ALL PRODUCTS ({totalProductsCount})</h3>
+            <a
+              href="#"
+              onClick={() => setSelectedCategory(null)}
+            >
+              <h3>ALL PRODUCTS ({totalProductsCount})</h3>
+            </a>
           </li>
           {categories.map((category) => (
             <li key={category.name}>
-              <h3>
-                {category.name} ({category.products.length})
-              </h3>
+              <a
+                href="#"
+                onClick={() => setSelectedCategory(category.name)}
+                className={selectedCategory === category.name ? 'selected' : ''}
+              >
+                <h3>
+                  {category.name} ({category.products.length})
+                </h3>
+              </a>
             </li>
           ))}
         </ul>
@@ -50,46 +67,45 @@ function Products({ categories, addToCart }: ProductsProps) {
       <div className="product-list">
         <h2>Products</h2>
         <ul>
-          {categories.map((category) =>
-            category.products.map((product) => (
-              <li key={product.id}>
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <FormControl required>
-                  <InputLabel htmlFor={`size-select-${product.id}`}>Select your size</InputLabel>
-                  <Select
-                    value={selectedSizes[product.id] || ''}
-                    onChange={(e) => handleSizeChange(product.id, e)}
-                    label={`Available Sizes`}
-                    inputProps={{
-                      id: `size-select-${product.id}`,
-                    }}
-                  >
-                    <MenuItem value="">Select Size</MenuItem>
-                    {product.sizes.map((size) => (
-                      <MenuItem key={size} value={size}>
-                        {size}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <Button
-                  variant="contained"
-                  color="success"
-                  disabled={!selectedSizes[product.id]}
-                  onClick={() => {
-                    if (selectedSizes[product.id]) {
-                      const productToAdd = { ...product };
-                      productToAdd.selectedSize = selectedSizes[product.id];
-                      addToCart(productToAdd);
-                    }
+          {filteredProducts.map((product) => (
+            <li key={product.id}>
+              <img src={product.image} alt={product.name} />
+              <h3>{product.name}</h3>
+              <p>Price: {product.price} SEK</p>
+              <FormControl required>
+                <InputLabel htmlFor={`size-select-${product.id}`}>Select your size</InputLabel>
+                <Select
+                  value={selectedSizes[product.id] || ''}
+                  onChange={(e) => handleSizeChange(product.id, e)}
+                  label={`Available Sizes`}
+                  inputProps={{
+                    id: `size-select-${product.id}`,
                   }}
                 >
-                  Add to cart!
-                </Button>
-              </li>
-            ))
-          )}
+                  <MenuItem value="">Select Size</MenuItem>
+                  {product.sizes.map((size) => (
+                    <MenuItem key={size} value={size}>
+                      {size}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Button
+                variant="contained"
+                color="success"
+                disabled={!selectedSizes[product.id]}
+                onClick={() => {
+                  if (selectedSizes[product.id]) {
+                    const productToAdd = { ...product };
+                    productToAdd.selectedSize = selectedSizes[product.id];
+                    addToCart(productToAdd);
+                  }
+                }}
+              >
+                Add to cart!
+              </Button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

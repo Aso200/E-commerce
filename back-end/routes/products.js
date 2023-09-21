@@ -1,23 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const cors = require('cors');
+const { MongoClient } = require('mongodb');
 
-const dataFilePath = './data/products.json';
+// Connection URL and database name
+const url = 'mongodb+srv://Aso:nXerongt3a8FWoTG@cluster0.1lefncm.mongodb.net/?retryWrites=true&w=majority'; // Replace with your MongoDB Atlas URI
+const dbName = 'Products'; // Replace with your database name
+const collectionName = 'Products'; // Replace with your collection name
 
-router.use(cors());
+// Create a new MongoClient
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-router.get('/products', function (req, res, next) {
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
+// Route to fetch products
+router.get('/', async (req, res) => {
+  try {
+    // Connect to MongoDB Atlas
+    await client.connect();
+    console.log('Connected to MongoDB');
+
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    // Fetch all products from the "Products" collection
+    const products = await collection.find({}).toArray();
+
+    if (products.length === 0) {
+      res.status(404).json({ message: 'No products found in the collection.' });
+    } else {
+      res.json(products);
     }
-    
-    const products = JSON.parse(data);
-    res.json(products);
-  });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    // Close the MongoDB connection when done
+    client.close();
+  }
 });
 
 module.exports = router;
