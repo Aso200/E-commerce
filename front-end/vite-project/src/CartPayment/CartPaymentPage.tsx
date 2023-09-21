@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CartItems } from '../Cart/MiniCart';
 import './CartPaymentPage.css';
+import { Link } from 'react-router-dom';
 
 function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: (updatedCart: CartItems[]) => void }) {
   const [cartItems, setCartItems] = useState(cart);
 
   useEffect(() => {
+    console.log(cartItems)
     localStorage.setItem('cart', JSON.stringify(cartItems));
     updateCart(cartItems);
   }, [cartItems, updateCart]);
@@ -26,6 +28,7 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
       updatedCart.splice(index, 1);
     }
     setCartItems(updatedCart);
+    console.log(updatedCart)
   };
 
   const plusQuantity = (index: number) => {
@@ -51,15 +54,20 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
                   marginRight: '20px',
                 }}
               >
-                <div>
+                <div id='cartItemDetails'>
+                <img src={cartItem.image} className='productImg' />
+                <div style={{marginLeft: "1%", width: "40%"}}>
                   <p>Name: {cartItem.name}</p>
                   <p>Price: {cartItem.price} kr</p>
                   <p>Size: {cartItem.selectedSize}</p>
-                </div>
-                <div>
+                  </div>
+                  <div style={{marginLeft:"10px", width: "30%"}}>
+                    <br />
+                    <br />
                   <p>Quantity: {cartItem.quantity}</p>
                   <button onClick={() => minusQuantity(index)}>-</button>
                   <button onClick={() => plusQuantity(index)}>+</button>
+                </div>
                 </div>
               </div>
             ))}
@@ -69,7 +77,9 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
               <h1>Order information</h1>
               <h4>Total order {calculateTotalPrice()} kr </h4>
             </div>
+          <Link to="/PayPage">
             <button id='payBtn'>Proceed</button>
+            </Link>
           </div>
     
     </div>

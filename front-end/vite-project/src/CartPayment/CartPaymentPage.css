@@ -5,7 +5,7 @@
     width: 100%;
 }
 #cartItemsWrapper {
-  min-height: 430px;
+    height: 480px;
     border: 1px solid rgba(0, 0, 0, 0.116);
     border-radius: 5px;
     background-color: white;
@@ -58,7 +58,7 @@
     display: flex;
     flex-flow: row wrap;
     gap: 2%;
-    width: 55%;
+    width: 65%;
     padding: 20px;
     background-color: rgba(231, 231, 231, 0.548);
 }
@@ -70,9 +70,18 @@ p {
 #h1 {
     height: 50px;
     background-color: rgba(231, 231, 231, 0.548);
-    width: 55%;
+    width: 65%;
     padding: 20px;
     margin: 0;
     margin-top: 20px;
 }
-
+.productImg {
+  width: 20%;
+}
+#cartItemDetails {
+  display: flex;
+  flex-flow: row wrap;
+}
+.cartItem {
+  padding: 1%;
+}

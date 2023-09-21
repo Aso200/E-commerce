@@ -32,9 +32,13 @@ function MiniCart(props: CartProps) {
   const calculateCartItemPrice = (cartItem: CartItems) => {
     return cartItem.price * cartItem.quantity;
   };
+const toggleOverlay = () => {
+  setIsActive(!isActive);
+}
 
   return (
     <div>
+      <div className={` ${isActive ? 'overlay' : ''}`} onClick={toggleOverlay}></div>
       <div id="miniCart">
         <button id="shoppingCartIcon" style={{ textAlign: 'center' }} onClick={toggleClassName}>
           <ShoppingCartIcon />
@@ -51,7 +55,7 @@ function MiniCart(props: CartProps) {
           ))}
           <p>Total price: {calculateTotalPrice()} kr</p>
           <Link to="/CartPaymentPage">
-            <button id="checkOutButton">Checkout</button>
+            <button id="checkOutButton" onClick={toggleOverlay}>Checkout</button>
           </Link>
         </div>
       </div>

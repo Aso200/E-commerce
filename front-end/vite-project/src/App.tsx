@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 import {Category, Product} from './Products/Product';
+import PayPage from './CartPayment/PayPage';
 
 function App() {
   const updateCart = (updatedCart: Product[]) => {
@@ -45,6 +46,7 @@ useEffect(() => {
         quantity: updatedCart[existingProductIndex].quantity + 1,
       };
       setCart(updatedCart);
+      console.log(updatedCart)
     } else {
       const updatedCart = [
         ...cart,
@@ -79,6 +81,14 @@ useEffect(() => {
           <div>
             <Header cart={cart}/>
         <CartPaymentPage cart={cart} updateCart={updateCart}/>
+        </div>
+        }/>
+                <Route
+        path='/PayPage'
+        element={
+          <div>
+            <Header cart={cart}/>
+        <PayPage cart={cart} updateCart={updateCart}/>
         </div>
         }/>
       </Routes>
