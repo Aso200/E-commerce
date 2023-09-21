@@ -1,0 +1,93 @@
+/* Reset link styles */
+a {
+  text-decoration: none; /* Remove underline */
+  color: black; /* Set the desired link color */
+}
+
+/* Apply styles to visited links if needed */
+a:visited {
+  color: black; /* Set the color for visited links */
+}
+
+/* Apply styles to link hover and active states */
+a:hover,
+a:active {
+  color: #001aff; /* Set the color for hover and active states */
+}
+
+/* Style the selected category link */
+a.selected {
+  color: #001aff; /* Set the color for the selected category link */
+}
+
+/* Rest of your CSS */ 
+.products-container {
+  display: flex;
+}
+
+.categories {
+  flex: 0.5;
+  padding: 16px 0 16px 15px;
+  border-right: 1px solid #ccc;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.categories h2 {
+  margin: 0;
+}
+
+.product-list {
+  flex: 2;
+  padding: 16px;
+}
+
+.product-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.product-list li {
+  width: calc(33.33% - 16px);
+  margin-bottom: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+  max-width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-list img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-list h3,
+.product-list p {
+  margin: 0;
+}
+
+.product-list select {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.product-list button {
+  background-color: #080D38;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-list button:hover {
+  background-color: #080D38;
+}
+
+.product-list button:active {
+  background-color: #3C8DAD;
+}

@@ -1,0 +1,86 @@
+#miniCart {
+  position: relative;
+    width: 350px;
+    z-index: 4;
+}
+#shoppingCartIcon {
+  position: relative;
+  background-color: white !important;
+  z-index: 4;
+    width: 50px;
+    cursor: pointer;
+    text-align: center;
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.CartInformation {
+    height: 0px;
+    overflow: hidden;
+    width: 350px;
+}
+.CartWrap {
+    border: 0px !important;
+    width: 350px;
+    height: 0px;
+    overflow: hidden;
+}
+.CartWrapShow {
+  background-color: white;
+  position: absolute;
+  z-index: 3;
+    transition: height 0.5s;
+    height: 250px;
+    border: 2px solid black !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+    }
+  }
+  
+  
+.CartInformationShow {
+    display: block !important;
+    height: auto;
+}
+
+#checkOutButton {
+  width: 200px;
+  cursor: pointer;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  margin-left: 75px;
+  font-size: 20px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+
+
