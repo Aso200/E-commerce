@@ -5,8 +5,12 @@ import Products from './Products/Products';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
-import {Category, Product} from './Products/Product';
 import PayPage from './CartPayment/PayPage';
+import { Category, Product } from './Products/Product';
+import Login from './Users/Login';
+import Dashboard from './Pages/dashboard';
+import Registration from './Users/register';
+
 
 function App() {
   const updateCart = (updatedCart: Product[]) => {
@@ -21,18 +25,26 @@ function App() {
       return [];
     }
   });
-const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
-useEffect(() => {
-    fetch('http://localhost:3000/products/products/')
+  useEffect(() => {
+    fetch('http://localhost:3000/products/')
       .then((response) => response.json())
       .then((data) => {
-        setCategories(data.categories);
+        if (Array.isArray(data) && data.length > 0) {
+          const categoriesData = data[0].categories;
+          console.log('Categories received:', categoriesData);
+          setCategories(categoriesData);
+        } else {
+          console.error('Data format is not as expected.');
+        }
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
+  
+  
 
   const addToCart = (productToAdd: Product) => {
     const existingProductIndex = cart.findIndex(
@@ -71,6 +83,33 @@ useEffect(() => {
             <div>
               <Header cart={cart} />
               <Products categories={categories} addToCart={addToCart} />
+            </div>
+          }
+        />
+        <Route
+          path="/Login" // New route for Login
+          element={
+            <div>
+              <Header cart={cart} />
+              <Login /> {/* Use your Login component here */}
+            </div>
+          }
+        />
+        <Route
+          path="/dashboard" // New route for Dashboard
+          element={
+            <div>
+              <Header cart={cart} />
+              <Dashboard /> {/* Use your Dashboard component here */}
+            </div>
+          }
+        />
+        <Route
+          path="/register" // New route for Registration
+          element={
+            <div>
+              <Header cart={cart} />
+              <Registration /> {/* Use your Registration component here */}
             </div>
           }
         />
