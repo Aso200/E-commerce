@@ -13,7 +13,6 @@ interface CartProps {
 }
 
 function MiniCart(props: CartProps) {
-  console.log("hej")
   const [isActive, setIsActive] = useState(false);
   const { cart } = props;
 

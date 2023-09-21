@@ -17,7 +17,8 @@ router.post("/", async (req, res, next) => {
     }
 
     if (user.password === password) {
-      return res.status(200).json({ message: "Login successful" });
+      let userInfo = [user.email, user.name, user.phoneNumber, user.address, user._id]
+      return res.status(200).json({userInfo});
     } else {
       return res.status(401).json({ message: "Invalid email or password" });
     }

@@ -20,44 +20,44 @@ function payPage(props: any) {
   };
 
   const orderInformationSend = () => {
-    const orderDetailsCopy = [...orderDetails];
+    const userInformation = JSON.parse(localStorage.getItem("userInformation") || '{}');
+    const userID = userInformation.userInfo[4];
     const total = calculateTotalPrice();
-
-    for (let i = 0; i < cart.length; i++) {
-      const item = cart[i];
-      orderDetailsCopy.push({
+  
+    const orderData = {
+      items: cart.map((item: any) => ({
         name: item.name,
         selectedSize: item.selectedSize,
         id: item.id,
         quantity: item.quantity,
-      });
-    }
-
-    orderDetailsCopy.push({ total: total });
-
+      })),
+      userID: userID,
+      total: total,
+    };
+  
     fetch("http://localhost:3000/order/", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(orderDetailsCopy),
+      body: JSON.stringify(orderData),
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log('POST request successful:', data);
-
-      localStorage.removeItem('cart');
-
-      props.updateCart([]);
-
-      setOrderDetails([]);
-    })
-    .catch((error) => {
-      console.error('Error sending order:', error);
-    });
-  }
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log('POST request successful:', data);
+  
+        localStorage.removeItem('cart');
+        props.updateCart([]);
+        setOrderDetails([]);
+      })
+      .catch((error) => {
+        console.error('Error sending order:', error);
+      });
+  };
+  
+  
 
   useEffect(() => {
     const total = calculateTotalPrice();

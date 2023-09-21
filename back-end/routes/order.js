@@ -1,41 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors');
+const { MongoClient } = require('mongodb');
+
 router.use(cors());
 
-const ordersFilePath = path.join(__dirname, '../data/order.json');
+const url = 'mongodb+srv://Aso:nXerongt3a8FWoTG@cluster0.1lefncm.mongodb.net/?retryWrites=true&w=majority';
+const dbName = 'ordersDB';
+const collectionName = 'orders';
 
-function generateOrderId(existingOrders) {
-  const lastOrder = existingOrders[existingOrders.length - 1];
-  if (lastOrder && lastOrder.id) {
-    return lastOrder.id + 1;
-  }
-  return 1;
-}
-
-router.post('/', (req, res) => {
-    console.log("helvete")
+router.post('/', async (req, res) => {
   try {
     const orderData = req.body;
-    let existingOrders = [];
-    if (fs.existsSync(ordersFilePath)) {
-      existingOrders = JSON.parse(fs.readFileSync(ordersFilePath, 'utf-8'));
-    }
 
-    const orderId = generateOrderId(existingOrders);
-    orderData.forEach((item) => {
-      const itemId = generateOrderId(existingOrders);
-      item.orderId = itemId;
-    });
+    const client = new MongoClient(url);
 
-    existingOrders.push(...orderData);
+    await client.connect();
 
-    fs.writeFileSync(ordersFilePath, JSON.stringify(existingOrders, null, 2));
-    res.status(201).json({ message: 'Order received successfully', orderId });
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    const result = await collection.insertOne(orderData);
+    
+    client.close();
+
+    res.status(201).json({ message: 'Order received successfully', orderId: result.insertedIds });
   } catch (error) {
-    console.error('Error handling order:', error);
+    console.error('hora', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });

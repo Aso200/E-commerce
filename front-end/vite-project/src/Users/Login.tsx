@@ -33,8 +33,14 @@ function Login(props: LoginProps) {
           password,
         }),
       });
-
+  
       if (response.ok) {
+        const responseData = await response.json();
+        console.log('Login successful:', responseData);
+  
+        // Save the response data to localStorage with the key "userInformation"
+        localStorage.setItem('userInformation', JSON.stringify(responseData));
+  
         navigate('/dashboard');
       } else {
         alert('Login failed. Please try again.');
