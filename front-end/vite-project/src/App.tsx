@@ -13,6 +13,7 @@ import Registration from './Users/register';
 
 
 function App() {
+  // State och funktioner för att hantera varukorg och produkter.
   const updateCart = (updatedCart: Product[]) => {
     setCart(updatedCart);
   };
@@ -21,30 +22,31 @@ function App() {
       const storedCart = localStorage.getItem('cart');
       return storedCart ? JSON.parse(storedCart) : [];
     } catch (error) {
-      console.error('Error loading cart from localStorage:', error);
+      console.error('Fel vid inläsning av varukorg från localStorage:', error);
       return [];
     }
   });
+
+  // State för att hantera produktkategorier.
   const [categories, setCategories] = useState<Category[]>([]);
 
+  // Effekt som hämtar produkter och deras kategorier från en API-tjänst.
   useEffect(() => {
     fetch('http://localhost:3000/products/')
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           const categoriesData = data[0].categories;
-          console.log('Categories received:', categoriesData);
+          console.log('Mottagna kategorier:', categoriesData);
           setCategories(categoriesData);
         } else {
-          console.error('Data format is not as expected.');
+          console.error('Dataformatet är inte som förväntat.');
         }
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error('Fel vid hämtning av data:', error);
       });
-  }, []);
-  
-  
+  }, []); // [] anger att effekten körs en gång vid komponentens montering.
 
   const addToCart = (productToAdd: Product) => {
     const existingProductIndex = cart.findIndex(
@@ -58,7 +60,7 @@ function App() {
         quantity: updatedCart[existingProductIndex].quantity + 1,
       };
       setCart(updatedCart);
-      console.log(updatedCart)
+      console.log(updatedCart);
     } else {
       const updatedCart = [
         ...cart,
@@ -69,7 +71,7 @@ function App() {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         setCart(updatedCart);
       } catch (error) {
-        console.error('Error saving cart to localStorage:', error);
+        console.error('Fel vid spara av varukorg i localStorage:', error);
       }
     }
   };
@@ -87,29 +89,29 @@ function App() {
           }
         />
         <Route
-          path="/Login" // New route for Login
+          path="/Login" 
           element={
             <div>
               <Header cart={cart} />
-              <Login /> {/* Use your Login component here */}
+              <Login /> 
             </div>
           }
         />
         <Route
-          path="/dashboard" // New route for Dashboard
+          path="/dashboard"
           element={
             <div>
               <Header cart={cart} />
-              <Dashboard /> {/* Use your Dashboard component here */}
+              <Dashboard /> 
             </div>
           }
         />
         <Route
-          path="/register" // New route for Registration
+          path="/register" 
           element={
             <div>
               <Header cart={cart} />
-              <Registration /> {/* Use your Registration component here */}
+              <Registration />
             </div>
           }
         />
