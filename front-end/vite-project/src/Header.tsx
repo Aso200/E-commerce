@@ -11,11 +11,11 @@ function Header({ cart }) {
             <h2 id='h2Header'>MADAGASCAR.COM | SNABBLEVERANS - HEMLEVERANS - FRI FRAKT</h2>
               <div id='miniLinkar'>
               <Link id='inlogg' to="/login">
-              <h3>Logga in</h3>
+              <h3>Login</h3>
               </Link>
 
               <Link id='inlogg' to="/register">
-              <h3>Registrera</h3>
+              <h3>Register</h3>
               </Link>
               </div>
       </div>
@@ -25,15 +25,15 @@ function Header({ cart }) {
       <div id='linksen'>
         
               <Link id='headerLink' to="/nyheter">
-              <h3>Nyheter</h3>
+              <h3>News</h3>
               </Link>
 
               <Link id='headerLink' to="/Kategorier">
-              <h3>Kategorier</h3>
+              <h3>Categories</h3>
               </Link>
 
               <Link id='headerLink' to="/rea">
-              <h3>Rea</h3>
+              <h3>Outlet</h3>
               </Link>
       </div>
       <MiniCart cart={cart} /> {/* Pass the cart prop to MiniCart */}

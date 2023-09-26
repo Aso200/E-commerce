@@ -13,7 +13,7 @@ function Mainpage() {
   <div className="image-container">
     <img id='heroImg' src={heroImg} alt="Bilden kunde inte laddas" />
     <Link to="/products">
-      <button id='butikButton'>Butik</button>
+      <button id='butikButton'>Store</button>
     </Link>
   </div>
 </div>

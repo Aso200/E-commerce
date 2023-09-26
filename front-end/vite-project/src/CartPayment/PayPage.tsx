@@ -69,7 +69,7 @@ function PayPage(props: any) {
       }
   
       const userInformation = JSON.parse(localStorage.getItem("userInformation") || '{}');
-      const userID = userInformation.userInfo[4];
+      const userID = userInformation._id;
       const total = calculateTotalPrice();
   
       const orderData = {
