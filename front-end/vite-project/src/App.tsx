@@ -10,6 +10,7 @@ import { Category, Product } from './Products/Product';
 import Login from './Users/Login';
 import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
+import Footer from './Footer';
 
 
 function App() {
@@ -21,30 +22,28 @@ function App() {
       const storedCart = localStorage.getItem('cart');
       return storedCart ? JSON.parse(storedCart) : [];
     } catch (error) {
-      console.error('Error loading cart from localStorage:', error);
+      console.error('Fel vid inläsning av varukorg från localStorage:', error);
       return [];
     }
   });
-  const [categories, setCategories] = useState<Category[]>([]);
 
+  const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     fetch('http://localhost:3000/products/')
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           const categoriesData = data[0].categories;
-          console.log('Categories received:', categoriesData);
+          console.log('Mottagna kategorier:', categoriesData);
           setCategories(categoriesData);
         } else {
-          console.error('Data format is not as expected.');
+          console.error('Dataformatet är inte som förväntat.');
         }
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error('Fel vid hämtning av data:', error);
       });
   }, []);
-  
-  
 
   const addToCart = (productToAdd: Product) => {
     const existingProductIndex = cart.findIndex(
@@ -58,7 +57,7 @@ function App() {
         quantity: updatedCart[existingProductIndex].quantity + 1,
       };
       setCart(updatedCart);
-      console.log(updatedCart)
+      console.log(updatedCart);
     } else {
       const updatedCart = [
         ...cart,
@@ -69,7 +68,7 @@ function App() {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         setCart(updatedCart);
       } catch (error) {
-        console.error('Error saving cart to localStorage:', error);
+        console.error('Fel vid spara av varukorg i localStorage:', error);
       }
     }
   };
@@ -87,39 +86,50 @@ function App() {
           }
         />
         <Route
-          path="/Login" // New route for Login
+          path="/Login" 
           element={
             <div>
               <Header cart={cart} />
-              <Login /> {/* Use your Login component here */}
+              <Login /> 
+              <Footer />
             </div>
           }
         />
         <Route
-          path="/dashboard" // New route for Dashboard
+          path="/dashboard"
           element={
             <div>
               <Header cart={cart} />
-              <Dashboard /> {/* Use your Dashboard component here */}
+              <Dashboard /> 
+              <Footer />
             </div>
           }
         />
         <Route
-          path="/register" // New route for Registration
+          path="/register" 
           element={
             <div>
               <Header cart={cart} />
-              <Registration /> {/* Use your Registration component here */}
+              <Registration />
+              <Footer />
             </div>
           }
         />
-        <Route path="/" element={<Mainpage />} />
+<Route path="/" 
+        element={
+          <div>
+            <Header cart={cart} />
+            <Mainpage />
+            <Footer />
+          </div>}
+        />
         <Route
         path='/CartPaymentPage'
         element={
           <div>
             <Header cart={cart}/>
-        <CartPaymentPage cart={cart} updateCart={updateCart}/>
+              <CartPaymentPage cart={cart} updateCart={updateCart}/>
+              <Footer />
         </div>
         }/>
                 <Route
@@ -127,7 +137,8 @@ function App() {
         element={
           <div>
             <Header cart={cart}/>
-        <PayPage cart={cart} updateCart={updateCart}/>
+            <PayPage cart={cart} updateCart={updateCart}/>
+            <Footer />
         </div>
         }/>
       </Routes>

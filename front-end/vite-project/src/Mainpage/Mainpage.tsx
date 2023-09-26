@@ -1,14 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Mainpage.css';
+import heroImg from './heroImg.png';
 
 function Mainpage() {
   return (
     <div>
-      <h1>Main Page</h1>
-      <p>START SIDA AAAAAAAAAAHHHHHHHHHHHHH.</p>
-      <Link to="/products">
-        <button>Gå till produkt sidan</button>
-      </Link>
+    <div id='MainSidan'>
+      
+    </div>
+    <div id='mainContent'>
+  <div className="image-container">
+    <img id='heroImg' src={heroImg} alt="Bilden kunde inte laddas" />
+    <Link to="/products">
+      <button id='butikButton'>Butik</button>
+    </Link>
+  </div>
+</div>
     </div>
   );
 }

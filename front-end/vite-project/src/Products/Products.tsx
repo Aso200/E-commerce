@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Product, Category } from './Product';
-import './products.css';
+import './Products.css';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
+import InputLabelSelect from './InputLabelSelect'; 
+import CustomButton from './CustomButton'; 
+import ProductDetail from './ProductDetail'; 
+import Product from './Product';
 
 interface ProductsProps {
   categories: Category[];
@@ -13,26 +12,33 @@ interface ProductsProps {
 }
 
 function Products({ categories, addToCart }: ProductsProps) {
-  if (!categories || categories.length === 0) {
-    return <div>Loading...</div>;
-  }
-
-  const [selectedSizes, setSelectedSizes] = useState<{ [productId: number]: string }>({});
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSizes, setSelectedSizes] = useState<{ [productId: number]: string }>({}); // Skapar en state-variabel för att lagra valda storlekar.
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Skapar en state-variabel för att lagra den valda kategorin.
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Skapar en state-variabel för att lagra den valda produkten.
 
   const handleSizeChange = (productId: number, event: React.ChangeEvent<{ value: string }>) => {
-    const newSize = event.target.value;
-    setSelectedSizes((prevSizes) => ({
-      ...prevSizes,
-      [productId]: newSize,
-    }));
+    setSelectedSizes((prevSizes) => ({ ...prevSizes, [productId]: event.target.value })); // Hanterar ändringar av storlek och uppdaterar state för valda storlekar.
   };
 
+  const totalProductsCount = categories.reduce((count, category) => count + category.products.length, 0); // Räknar ut det totala antalet produkter.
   const filteredProducts = selectedCategory
-    ? categories.find((category) => category.name === selectedCategory)?.products || []
-    : categories.flatMap((category) => category.products);
+    ? categories.find((category) => category.name === selectedCategory)?.products || [] // Filtrerar produkter baserat på vald kategori.
+    : categories.flatMap((category) => category.products); // Om ingen kategori är vald, visas alla produkter.
 
-  const totalProductsCount = filteredProducts.length;
+  const openProductDetail = (product: Product) => {
+    setSelectedProduct(product); // Öppnar detaljvyn för en produkt.
+  };
+
+  const closeProductDetail = () => {
+    setSelectedProduct(null); // Stänger detaljvyn för produkten.
+  };
+
+  const handleAddToCart = (product: Product) => {
+    if (selectedSizes[product.id]) {
+      addToCart({ ...product, selectedSize: selectedSizes[product.id] }); // Lägger till en produkt i varukorgen med den valda storleken.
+      setSelectedSizes((prevSizes) => ({ ...prevSizes, [product.id]: '' })); // Återställer den valda storleken efter att produkten har lagts till i varukorgen.
+    }
+  };
 
   return (
     <div className="products-container">
@@ -42,10 +48,7 @@ function Products({ categories, addToCart }: ProductsProps) {
         </div>
         <ul>
           <li>
-            <a
-              href="#"
-              onClick={() => setSelectedCategory(null)}
-            >
+            <a href="#" onClick={() => setSelectedCategory(null)}>
               <h3>ALL PRODUCTS ({totalProductsCount})</h3>
             </a>
           </li>
@@ -69,45 +72,37 @@ function Products({ categories, addToCart }: ProductsProps) {
         <ul>
           {filteredProducts.map((product) => (
             <li key={product.id}>
-              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.name} onClick={() => openProductDetail(product)} />
               <h3>{product.name}</h3>
               <p>Price: {product.price} SEK</p>
               <FormControl required>
-                <InputLabel htmlFor={`size-select-${product.id}`}>Select your size</InputLabel>
-                <Select
+                <InputLabelSelect
+                  id={`size-select-${product.id}`}
+                  label="Select your size"
                   value={selectedSizes[product.id] || ''}
                   onChange={(e) => handleSizeChange(product.id, e)}
-                  label={`Available Sizes`}
-                  inputProps={{
-                    id: `size-select-${product.id}`,
-                  }}
-                >
-                  <MenuItem value="">Select Size</MenuItem>
-                  {product.sizes.map((size) => (
-                    <MenuItem key={size} value={size}>
-                      {size}
-                    </MenuItem>
-                  ))}
-                </Select>
+                  options={product.sizes}
+                />
               </FormControl>
-              <Button
+              <CustomButton
                 variant="contained"
                 color="success"
                 disabled={!selectedSizes[product.id]}
-                onClick={() => {
-                  if (selectedSizes[product.id]) {
-                    const productToAdd = { ...product };
-                    productToAdd.selectedSize = selectedSizes[product.id];
-                    addToCart(productToAdd);
-                  }
-                }}
+                onClick={() => handleAddToCart(product)}
               >
                 Add to cart!
-              </Button>
+              </CustomButton>
             </li>
           ))}
         </ul>
       </div>
+      {selectedProduct && (
+        <ProductDetail
+          product={selectedProduct}
+          onClose={closeProductDetail}
+          onAddToCart={addToCart}
+        />
+      )}
     </div>
   );
 }

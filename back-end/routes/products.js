@@ -3,14 +3,12 @@ const router = express.Router();
 const { MongoClient } = require('mongodb');
 
 // Connection URL and database name
-const url = 'mongodb+srv://Aso:nXerongt3a8FWoTG@cluster0.1lefncm.mongodb.net/?retryWrites=true&w=majority'; // Replace with your MongoDB Atlas URI
-const dbName = 'Products'; // Replace with your database name
-const collectionName = 'Products'; // Replace with your collection name
+const url = 'mongodb+srv://Aso:nXerongt3a8FWoTG@cluster0.1lefncm.mongodb.net/?retryWrites=true&w=majority';
+const dbName = 'Products';
+const collectionName = 'Products';
 
-// Create a new MongoClient
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Route to fetch products
 router.get('/', async (req, res) => {
   try {
     // Connect to MongoDB Atlas

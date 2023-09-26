@@ -28,6 +28,7 @@ router.post("/register", async (req, res, next) => {
       password,
       phoneNumber,
       address,
+      isAdmin: false,
     });
 
     res.status(201).json({ message: "Registration successful", userId });

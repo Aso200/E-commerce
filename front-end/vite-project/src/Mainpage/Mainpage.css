@@ -1,0 +1,130 @@
+#header {
+    display: flex;
+    flex-direction: column;
+    color: #080D38;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+#miniHeader {
+    background-color: #080D38;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+#h2Header {
+    justify-content: start;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: small;
+    margin-left: 8rem;
+}
+#titel {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 48px;
+    
+}
+
+#miniLinkar {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-right: 1rem;
+}
+#linksen {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+}
+#inlogg {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: small;
+}
+#inlogg:visited {
+    text-decoration: none;
+    color: white;
+}
+#inlogg:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+#headerLink {
+    color: #080D38;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+}
+#headerLink:visited {
+    text-decoration: none;
+    color: #080D38;
+}
+#headerLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+#mainContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .image-container {
+    position: relative;
+    text-align: center; 
+  }
+#heroImg {
+    border-top: 1px solid black;
+    width: 100vw;
+    height: 100vh;
+}
+  
+  
+  #butikButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background-color: #080D38;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    padding: 18px 75px;
+    font-size: 30px;
+    border-radius: 40px;
+    cursor: pointer;
+  }
+  
+#butikButton:hover {
+    background-color: #383d6c;
+    cursor: pointer;
+}
+#footern {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    border-top: 1px solid black;
+    margin-top: 10px;
+}
+#footerLink {
+    color: #080D38;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+}
+#footerLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#carten {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
