@@ -14,7 +14,6 @@ function SwishPayPage({ number, onValidSwishChange }: SwishPayPageProps) {
   };
 
   useEffect(() => {
-    console.log(validSwish)
     const isValid = validateSwish(editedNumber);
     setValidSwish(isValid);
     onValidSwishChange(isValid);

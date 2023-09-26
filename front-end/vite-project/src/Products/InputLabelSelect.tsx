@@ -13,6 +13,7 @@ interface InputLabelSelectProps {
 
 const inputLabelSelectStyles = {
   width: '100%', 
+  padding: 0,
 };
 
 const InputLabelSelect: React.FC<InputLabelSelectProps> = ({
