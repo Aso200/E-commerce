@@ -36,7 +36,7 @@ function Header({ cart }) {
               <h3>Rea</h3>
               </Link>
       </div>
-      <MiniCart cart={cart} /> {/* Pass the cart prop to MiniCart */}
+      <MiniCart cart={cart} /> {/* Pass the cart prop to MiniCart bro */}
 
     </div>
     
