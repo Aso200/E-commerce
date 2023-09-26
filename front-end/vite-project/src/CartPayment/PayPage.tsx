@@ -59,48 +59,54 @@ function PayPage(props: any) {
   };
 
   const orderInformationSend = () => {
-
     if (validSwish || validCard) {
-
-    const userInformation = JSON.parse(localStorage.getItem("userInformation") || '{}');
-    const userID = userInformation.userInfo[4];
-    const total = calculateTotalPrice();
+      const cartData = localStorage.getItem("cart");
+      if (!cartData) {
+        alert("Your cart empty!");
+        return;
+      }
   
-    const orderData = {
-      items: cart.map((item: any) => ({
-        name: item.name,
-        selectedSize: item.selectedSize,
-        id: item.id,
-        quantity: item.quantity,
-      })),
-      userID: userID,
-      total: total,
-    };
+      const userInformation = JSON.parse(localStorage.getItem("userInformation") || '{}');
+      const userID = userInformation.userInfo[4];
+      const total = calculateTotalPrice();
   
-    fetch("http://localhost:3000/order/", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    })
-      .then((response) => {
-        setValidSwish(false);
-        setValidCard(false);
-        return response.json();
+      const orderData = {
+        items: cart.map((item: any) => ({
+          name: item.name,
+          selectedSize: item.selectedSize,
+          id: item.id,
+          quantity: item.quantity,
+        })),
+        userID: userID,
+        total: total,
+      };
+  
+      fetch("http://localhost:3000/order/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
       })
-      .then((data) => {
-        console.log('POST request successful:', data);
+        .then((response) => {
+          setValidSwish(false);
+          setValidCard(false);
+          return response.json();
+        })
+        .then((data) => {
+          console.log('POST request successful:', data);
   
-        localStorage.removeItem('cart');
-        alert("order sent!")
-        props.updateCart([]);
-        setOrderDetails([]);
-      })
-      .catch((error) => {
-        console.error('Error sending order:', error);
-      });}
+          localStorage.removeItem('cart');
+          alert("Order sent!");
+          props.updateCart([]);
+          setOrderDetails([]);
+        })
+        .catch((error) => {
+          console.error('Error sending order:', error);
+        });
+    }
   };
+  
   
   useEffect(() => {
     const total = calculateTotalPrice();

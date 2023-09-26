@@ -10,10 +10,10 @@ import { Category, Product } from './Products/Product';
 import Login from './Users/Login';
 import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
+import Footer from './Footer';
 
 
 function App() {
-  // State och funktioner för att hantera varukorg och produkter.
   const updateCart = (updatedCart: Product[]) => {
     setCart(updatedCart);
   };
@@ -27,10 +27,7 @@ function App() {
     }
   });
 
-  // State för att hantera produktkategorier.
   const [categories, setCategories] = useState<Category[]>([]);
-
-  // Effekt som hämtar produkter och deras kategorier från en API-tjänst.
   useEffect(() => {
     fetch('http://localhost:3000/products/')
       .then((response) => response.json())
@@ -46,7 +43,7 @@ function App() {
       .catch((error) => {
         console.error('Fel vid hämtning av data:', error);
       });
-  }, []); // [] anger att effekten körs en gång vid komponentens montering.
+  }, []);
 
   const addToCart = (productToAdd: Product) => {
     const existingProductIndex = cart.findIndex(
@@ -94,6 +91,7 @@ function App() {
             <div>
               <Header cart={cart} />
               <Login /> 
+              <Footer />
             </div>
           }
         />
@@ -103,6 +101,7 @@ function App() {
             <div>
               <Header cart={cart} />
               <Dashboard /> 
+              <Footer />
             </div>
           }
         />
@@ -112,16 +111,25 @@ function App() {
             <div>
               <Header cart={cart} />
               <Registration />
+              <Footer />
             </div>
           }
         />
-        <Route path="/" element={<Mainpage />} />
+<Route path="/" 
+        element={
+          <div>
+            <Header cart={cart} />
+            <Mainpage />
+            <Footer />
+          </div>}
+        />
         <Route
         path='/CartPaymentPage'
         element={
           <div>
             <Header cart={cart}/>
-        <CartPaymentPage cart={cart} updateCart={updateCart}/>
+              <CartPaymentPage cart={cart} updateCart={updateCart}/>
+              <Footer />
         </div>
         }/>
                 <Route
@@ -129,7 +137,8 @@ function App() {
         element={
           <div>
             <Header cart={cart}/>
-        <PayPage cart={cart} updateCart={updateCart}/>
+            <PayPage cart={cart} updateCart={updateCart}/>
+            <Footer />
         </div>
         }/>
       </Routes>

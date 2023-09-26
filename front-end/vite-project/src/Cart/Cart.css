@@ -1,66 +1,72 @@
+/* Updated MiniCart CSS */
 #miniCart {
-  position: relative;
-    width: 350px;
-    z-index: 4;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 4;
+  width: 30px;
+  margin-right: 60px;
+  margin-bottom: 16px;
 }
+
 #shoppingCartIcon {
   position: relative;
   background-color: white !important;
-  z-index: 4;
-    width: 50px;
-    cursor: pointer;
-    text-align: center;
-    border: 0px;
-    background-color: rgba(255, 255, 255, 0);
+  width: 50px;
+  cursor: pointer;
+  text-align: center;
+  border: 0px;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .CartInformation {
-    height: 0px;
-    overflow: hidden;
-    width: 350px;
+  height: 0px;
+  overflow: hidden;
+  width: 350px;
 }
+
 .CartWrap {
-    border: 0px !important;
-    width: 350px;
-    height: 0px;
-    overflow: hidden;
+  border: 0px !important;
+  width: 350px;
+  height: 0px;
+  overflow: hidden;
 }
+
 .CartWrapShow {
   background-color: white;
   position: absolute;
   z-index: 3;
-    transition: height 0.5s;
-    height: 250px;
-    border: 2px solid black !important;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  
-    &::-webkit-scrollbar {
-      width: 8px;
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-    }
-  
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-    }
+  transition: height 0.5s;
+  height: 250px;
+  border: 2px solid black !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  right: 0;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
   }
-  
-  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+}
+
 .CartInformationShow {
-    display: block !important;
-    height: auto;
+  display: block !important;
+  height: auto;
 }
 
 #checkOutButton {
@@ -81,6 +87,3 @@
   height: 100%;
   z-index: 2;
 }
-
-
-

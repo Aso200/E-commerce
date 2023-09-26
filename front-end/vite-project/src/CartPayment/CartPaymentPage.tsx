@@ -57,14 +57,12 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
               >
                 <div id='cartItemDetails'>
                 <img src={cartItem.image} className='productImg' />
-                <div style={{marginLeft: "1%", width: "40%"}}>
+                <div id="smallStyling" style={{marginLeft: "1%", width: "40%"}}>
                   <p>Name: {cartItem.name}</p>
                   <p>Price: {cartItem.price} kr</p>
                   <p>Size: {cartItem.selectedSize}</p>
                   </div>
-                  <div style={{marginLeft:"10px", width: "30%"}}>
-                    <br />
-                    <br />
+                  <div style={{marginLeft:"1%", width: "30%"}}>
                   <p>Quantity: {cartItem.quantity}</p>
                   <button onClick={() => minusQuantity(index)}>-</button>
                   <button onClick={() => plusQuantity(index)}>+</button>

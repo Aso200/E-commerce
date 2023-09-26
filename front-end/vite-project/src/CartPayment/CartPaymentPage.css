@@ -85,3 +85,100 @@ p {
 .cartItem {
   padding: 1%;
 }
+
+@media screen and (max-width: 768px) {
+  #smallStyling {
+    width: 100% !important;
+  }
+/* Base styles for both desktop and mobile */
+#cartPaymentWrapper {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+#cartItemsWrapper {
+  border: 1px solid rgba(0, 0, 0, 0.116);
+  border-radius: 5px;
+  background-color: white;
+  width: 100%; /* Adjusted width for mobile */
+  max-height: 480px; /* Adjusted max-height for mobile */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+}
+
+#orderDetailsWrapper {
+  border: 0.5px solid rgba(0, 0, 0, 0.116);
+  border-radius: 5px;
+  background-color: white;
+  width: 100%; /* Adjusted width for mobile */
+  text-align: center;
+  height: 40%;
+}
+
+.btnStyling {
+  color: white;
+  background-color: #080D38;
+  width: 100%; /* Adjusted width for mobile */
+  height: 50px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#cartPageWrap {
+  display: flex;
+  flex-flow: column; /* Adjusted to stack elements vertically on mobile */
+  width: 100%; /* Adjusted width for mobile */
+  padding: 20px;
+  background-color: rgba(231, 231, 231, 0.548);
+}
+
+p {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 20px;
+}
+
+#h1 {
+  background-color: rgba(231, 231, 231, 0.548);
+  width: 100%; /* Adjusted width for mobile */
+  padding: 20px;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.productImg {
+width: 100%; /* Adjusted width for mobile */
+height: 50% !important;
+}
+
+#cartItemDetails {
+display: flex;
+flex-flow: column; /* Adjusted to stack items vertically on mobile */
+height: 20%;
+}
+
+.cartItem {
+padding: 2% 0; /* Adjusted padding for mobile */
+}
+}

@@ -55,3 +55,66 @@
     color: white;
     font-size: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    #contentWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    
+    #paypageWrapper {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+        justify-content: center;
+        height: auto;
+    }
+    
+    .stylingForDiv {
+        display: flex;
+        justify-content: center;
+        flex-flow: row wrap;
+        background-color: rgba(231, 231, 231, 0.548);
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .paymentBtn {
+        margin-top: 10px;
+        margin-left: 0;
+        background-color: rgba(231, 231, 231, 0);
+        border: 0px;
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    
+    .paymentBtn:hover {
+        transform: scale(1.1);
+    }
+    
+    .paymentBtn img {
+        border-radius: 10px;
+        width: 80%;
+        height: auto;
+    }
+    
+    .stylingWrapper {
+        background-color: rgba(231, 231, 231, 0.548);
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    #sendOrderBtn {
+        width: 100%;
+        height: auto;
+        background-color: #080D38;
+        color: white;
+        font-size: 20px;
+    }
+}
