@@ -40,6 +40,7 @@ function Login(props: LoginProps) {
   
         // Save the response data to localStorage with the key "userInformation"
         localStorage.setItem('userInformation', JSON.stringify(responseData));
+        console.log(responseData)
   
         navigate('/dashboard');
       } else {

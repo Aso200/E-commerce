@@ -1,0 +1,12 @@
+.invalid {
+    border: 1px solid red;
+}
+#paymentpageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+}
+#paymentpageWrapper input {
+    width: 50%;
+}

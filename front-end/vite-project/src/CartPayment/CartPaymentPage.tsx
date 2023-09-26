@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: (updatedCart: CartItems[]) => void }) {
   const [cartItems, setCartItems] = useState(cart);
+  const userInformationExists = localStorage.getItem('userInformation');
 
   useEffect(() => {
     console.log(cartItems)
@@ -77,9 +78,18 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
               <h1>Order information</h1>
               <h4>Total order {calculateTotalPrice()} kr </h4>
             </div>
-          <Link to="/PayPage">
-            <button id='payBtn'>Proceed</button>
-            </Link>
+            {userInformationExists ? (
+        <Link to="/PayPage">
+          <button id="payBtn" className='btnStyling'>Proceed</button>
+        </Link>
+      ) : (
+        <div>
+          <p id='p'>Please login before continuing!</p>
+        <Link to="/login">
+          <button id="loginBtn" className='btnStyling'>Login</button>
+        </Link>
+        </div>
+      )}
           </div>
     
     </div>

@@ -26,7 +26,6 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ message: 'Order received successfully', orderId: result.insertedIds });
   } catch (error) {
-    console.error('hora', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });

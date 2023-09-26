@@ -42,7 +42,7 @@
     text-align: center;
 }
 
-#payBtn {
+.btnStyling {
     color: white;
     background-color: #080D38;
     width: 65%;
