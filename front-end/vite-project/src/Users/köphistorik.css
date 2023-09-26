@@ -1,0 +1,56 @@
+li > ul > li {
+    margin: 10px 0;
+}
+
+
+
+
+li > ul > li {
+    margin: 10px 0;
+}
+
+
+li > button:focus + ul > li {
+    display: block;
+}
+
+
+
+.order-total {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #36689e;
+    margin-top: 20px;
+}
+/* 
+h1 {
+    font-weight: normal;
+    font-size: 28px;
+    color: #2C2C2C;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 10px;
+} */
+
+
+
+
+@media (max-width: 768px) {
+    /* h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    } */
+
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    input {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

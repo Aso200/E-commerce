@@ -20,9 +20,9 @@ function PayPage(props: any) {
   const [orderDetails, setOrderDetails] = useState<any[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const userInformation = JSON.parse(localStorage.getItem('userInformation') || '{}');
-  const userID = userInformation.userInfo[4];
-  const [emailInput, setEmailInput] = useState<string>(userInformation.userInfo[0]);
-  const [addressInput, setAddressInput] = useState<string>(userInformation.userInfo[3]);
+  const userID = userInformation._id;
+  const [emailInput, setEmailInput] = useState<string>(userInformation.email);
+  const [addressInput, setAddressInput] = useState<string>(userInformation.address);
   const [selectedPayment, setPayment] = useState<string>('');
   const [showPaymentForm, setShowPaymentForm] = useState<boolean>(false);
   const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>('instabox');
@@ -33,8 +33,8 @@ function PayPage(props: any) {
 
   const userData: userInfo = {
     email: emailInput,
-    name: userInformation.userInfo[1],
-    phoneNumber: userInformation.userInfo[2],
+    name: userInformation.name,
+    phoneNumber: userInformation.phoneNumber,
     address: addressInput,
   };
 

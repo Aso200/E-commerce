@@ -3,7 +3,7 @@ import LogOutButton from '../Users/logoutbtn';
 import { useNavigate } from 'react-router-dom';
 import PurchaseHistory from '../Users/köphistorik';
 import Settings from '../Users/inställningar';
-
+import "./dashboard.css"
 function Dashboard() {
 
     const navigate = useNavigate()

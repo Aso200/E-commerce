@@ -30,4 +30,27 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+router.get("/orders/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const client = new MongoClient(url);
+
+    await client.connect();
+
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    const orders = await collection.find({ userID: userId }).toArray();
+
+    client.close();
+    console.log(orders);
+
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;
