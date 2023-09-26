@@ -6,7 +6,9 @@ export interface Product {
   quantity: number;
   image: string;
   selectedSize?: string;
+  description: string;
 }
+
 
 export interface Category {
   name: string;
