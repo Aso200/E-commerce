@@ -38,6 +38,8 @@ function AdminDashboard() {
             order._id === updatedOrder._id ? updatedOrder : order
           )
         );
+        // Reload orders to refresh the list
+        loadOrders();
       })
       .catch((error) => {
         console.error('Error updating order status:', error);
@@ -61,24 +63,23 @@ function AdminDashboard() {
       <div>
         <h2>Orders</h2>
         <ul>
-  {orders.map((order) => (
-    <li key={order._id} style={{ marginBottom: '20px' }}> {/* Add margin to create space */}
-      Order ID: {order._id}, <br /> Total Amount: {order.total}
-      <ul>
-        {order.items.map((item, index) => (
-          <li key={index}>
-            Product: {item.name}, Size: {item.selectedSize}, Quantity: {item.quantity}
-          </li>
-        ))}
-      </ul>
-      {/* Conditionally display the order status */}
-      {order.status && <div>Order Status: {order.status}</div>}
-      {/* Button to mark the order as "Sent" */}
-      <button onClick={() => updateOrderStatus(order._id)}>Mark as Sent</button>
-    </li>
-  ))}
-</ul>
-
+          {orders.map((order) => (
+            <li key={order._id} style={{ marginBottom: '20px' }}>
+              Order ID: {order._id}, <br /> Total Amount: {order.total}
+              <ul>
+                {order.items.map((item, index) => (
+                  <li key={index}>
+                    Product: {item.name}, Size: {item.selectedSize}, Quantity: {item.quantity}
+                  </li>
+                ))}
+              </ul>
+              {/* Conditionally display the order status */}
+              {order.status && <div>Order Status: {order.status}</div>}
+              {/* Button to mark the order as "Sent" */}
+              <button onClick={() => updateOrderStatus(order._id)}>Mark as Sent</button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

@@ -27,6 +27,20 @@ function App() {
     }
   });
 
+  useEffect(() => {
+    // Fetch products data
+    fetch('http://localhost:3000/products/')
+      .then((response) => response.json())
+      .then((data) => {
+        // Log the fetched data to the console
+        console.log('Fetched products data:', data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+  
+
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     fetch('http://localhost:3000/products/')
@@ -34,7 +48,6 @@ function App() {
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           const categoriesData = data[0].categories;
-          console.log('Mottagna kategorier:', categoriesData);
           setCategories(categoriesData);
         } else {
           console.error('Dataformatet är inte som förväntat.');
@@ -57,7 +70,6 @@ function App() {
         quantity: updatedCart[existingProductIndex].quantity + 1,
       };
       setCart(updatedCart);
-      console.log(updatedCart);
     } else {
       const updatedCart = [
         ...cart,

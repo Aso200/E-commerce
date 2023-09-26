@@ -6,13 +6,13 @@ function Footer () {
     return (
         <div id='footern'>
             <Link id='footerLink' to="/kontakt">
-            <h3>Kontakta oss</h3>
+            <h3>Contact us</h3>
             </Link>
             <Link id='footerLink' to="/policy">
-            <h3>Våran policy</h3>
+            <h3>Our policy</h3>
             </Link>
             <Link id='footerLink' to="/donera">
-            <h3>Donera till barn i nöd</h3>
+            <h3>Donate to kids in need</h3>
             </Link>
         </div>
     );

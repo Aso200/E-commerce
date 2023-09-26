@@ -8,7 +8,7 @@ function Header({ cart }) {
     
       <div id='header'>
         <div id='miniHeader'>
-            <h2 id='h2Header'>MADAGASCAR.COM | SNABBLEVERANS - HEMLEVERANS - FRI FRAKT</h2>
+            <h2 id='h2Header'>MADAGASCAR.COM | FAST DELIVERY - HOME DELIVERY - FREE SHIPPING</h2>
               <div id='miniLinkar'>
               <Link id='inlogg' to="/login">
               <h3>Login</h3>

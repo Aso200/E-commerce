@@ -8,7 +8,6 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
   const userInformationExists = localStorage.getItem('userInformation');
 
   useEffect(() => {
-    console.log(cartItems)
     localStorage.setItem('cart', JSON.stringify(cartItems));
     updateCart(cartItems);
   }, [cartItems, updateCart]);
@@ -29,7 +28,6 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
       updatedCart.splice(index, 1);
     }
     setCartItems(updatedCart);
-    console.log(updatedCart)
   };
 
   const plusQuantity = (index: number) => {

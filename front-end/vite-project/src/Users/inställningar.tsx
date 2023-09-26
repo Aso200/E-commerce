@@ -24,12 +24,11 @@ function Settings({ customerInfo }: SettingProps) {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Saved data:", formData);
     };
 
     return (
         <div className="settings-container">
-            <h2>Inställningar</h2>
+            <h2>Settings</h2>
             <form onSubmit={handleFormSubmit}>
                 <div>
                     <label className='labelName'>Name:</label>
@@ -50,7 +49,7 @@ function Settings({ customerInfo }: SettingProps) {
                     />
                 </div>
                 <div>
-                    <label className='labelName'>Address:</label>
+                    <label className='labelName'>Adress:</label>
                     <input
                     className='inputName'
                         type="text"
