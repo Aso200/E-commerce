@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Mainpage from './Mainpage/Mainpage';
 import Products from './Products/Products';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 import PayPage from './CartPayment/PayPage';
@@ -11,7 +11,7 @@ import Login from './Users/Login';
 import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
 import Footer from './Footer';
-
+import AdminDashboard from './Admin/admindashboard';
 
 function App() {
   const updateCart = (updatedCart: Product[]) => {
@@ -75,72 +75,15 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/products"
-          element={
-            <div>
-              <Header cart={cart} />
-              <Products categories={categories} addToCart={addToCart} />
-            </div>
-          }
-        />
-        <Route
-          path="/Login" 
-          element={
-            <div>
-              <Header cart={cart} />
-              <Login /> 
-              <Footer />
-            </div>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <div>
-              <Header cart={cart} />
-              <Dashboard /> 
-              <Footer />
-            </div>
-          }
-        />
-        <Route
-          path="/register" 
-          element={
-            <div>
-              <Header cart={cart} />
-              <Registration />
-              <Footer />
-            </div>
-          }
-        />
-<Route path="/" 
-        element={
-          <div>
-            <Header cart={cart} />
-            <Mainpage />
-            <Footer />
-          </div>}
-        />
-        <Route
-        path='/CartPaymentPage'
-        element={
-          <div>
-            <Header cart={cart}/>
-              <CartPaymentPage cart={cart} updateCart={updateCart}/>
-              <Footer />
-        </div>
-        }/>
-                <Route
-        path='/PayPage'
-        element={
-          <div>
-            <Header cart={cart}/>
-            <PayPage cart={cart} updateCart={updateCart}/>
-            <Footer />
-        </div>
-        }/>
+      <Routes> 
+        <Route path="/" element={<div><Header cart={cart} /><Mainpage /><Footer /></div>} />
+        <Route path="/products" element={<div><Header cart={cart} /><Products categories={categories} addToCart={addToCart} /><Footer /></div>} />
+        <Route path="/admin-dashboard" element={<div><Header cart={cart} /><AdminDashboard /><Footer /></div>} />
+        <Route path="/Login" element={<div><Header cart={cart} /><Login /><Footer /></div>} />
+        <Route path="/register" element={<div><Header cart={cart} /><Registration /><Footer /></div>} />
+        <Route path="/CartPaymentPage" element={<div><Header cart={cart} /><CartPaymentPage cart={cart} updateCart={updateCart} /><Footer /></div>} />
+        <Route path="/PayPage" element={<div><Header cart={cart} /><PayPage cart={cart} updateCart={updateCart} /><Footer /></div>} />
+        <Route path="/dashboard" element={<div><Header cart={cart} /><Dashboard /><Footer /></div>} />
       </Routes>
     </Router>
   );

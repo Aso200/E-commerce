@@ -40,18 +40,24 @@ function Login(props: LoginProps) {
   
         // Save the response data to localStorage with the key "userInformation"
         localStorage.setItem('userInformation', JSON.stringify(responseData));
-        console.log(responseData)
-        
-        navigate('/dashboard');
-        
+        console.log(responseData);
+  
+        if (responseData.isAdmin) {
+          navigate('/admin-dashboard');
+        } else {
+          navigate('/dashboard');
+        }
       } else {
+        // Handle login failure, e.g., show an error message to the user
         alert('Login failed. Please try again.');
       }
     } catch (error) {
       console.error('Error during login:', error);
+      // Handle the error here, e.g., show an error message to the user
+      alert('An error occurred during login. Please try again later.');
     }
   };
-
+      
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };

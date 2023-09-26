@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,  } from 'react';
 import { CartItems } from '../Cart/MiniCart';
 import PaymentForm from './PaymentForm';
 import SwishPayPage from './SwishPayPage';
+import { useNavigate } from 'react-router-dom';
 import './PayPage.css';
 
 interface userInfo {
@@ -12,6 +13,7 @@ interface userInfo {
 }
 
 function PayPage(props: any) {
+  const navigate = useNavigate()
   const [validSwish, setValidSwish] = useState<boolean>(false);
   const [validCard, setValidCard] = useState<boolean>(false);
   const { cart } = props;
@@ -98,6 +100,7 @@ function PayPage(props: any) {
   
           localStorage.removeItem('cart');
           alert("Order sent!");
+          navigate('/products')
           props.updateCart([]);
           setOrderDetails([]);
         })

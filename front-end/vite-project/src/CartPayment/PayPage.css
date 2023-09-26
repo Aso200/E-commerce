@@ -9,6 +9,7 @@
     flex-flow: row wrap;
     width: 100%;
     justify-content: center;
+    align-items: center;
     height: 600px;
 }
 .stylingForDiv {
