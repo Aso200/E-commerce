@@ -14,7 +14,7 @@ function Header({ cart }) {
               <h3>Logga in</h3>
               </Link>
 
-              <Link id='inlogg' to="/registrera">
+              <Link id='inlogg' to="/register">
               <h3>Registrera</h3>
               </Link>
               </div>
