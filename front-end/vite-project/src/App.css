@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    padding-right: 0 !important; /* Use !important to ensure it takes precedence */
-    overflow: visible !important; /* Override overflow if needed */
+    padding-right: 0 !important;
+    overflow: visible !important;
   }
   

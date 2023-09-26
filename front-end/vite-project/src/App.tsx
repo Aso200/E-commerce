@@ -28,11 +28,9 @@ function App() {
   });
 
   useEffect(() => {
-    // Fetch products data
     fetch('http://localhost:3000/products/')
       .then((response) => response.json())
       .then((data) => {
-        // Log the fetched data to the console
         console.log('Fetched products data:', data);
       })
       .catch((error) => {

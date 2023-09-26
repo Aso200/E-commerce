@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Order } from './order'; // Assuming 'order.tsx' is in the same 'Admin' folder
+import { Order } from './order';
 
 function AdminDashboard() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Function to load orders
   const loadOrders = () => {
     setLoading(true);
     fetch('http://localhost:3000/getOrders')
@@ -21,7 +20,7 @@ function AdminDashboard() {
   };
 
   const updateOrderStatus = (orderId) => {
-    const newStatus = 'Sent'; // Change this as needed
+    const newStatus = 'Sent';
 
     fetch(`http://localhost:3000/getOrders/${orderId}/updateStatus`, {
       method: 'PUT',
@@ -32,13 +31,11 @@ function AdminDashboard() {
     })
       .then((response) => response.json())
       .then((updatedOrder) => {
-        // Update the order status in the local state
         setOrders((prevOrders) =>
           prevOrders.map((order) =>
             order._id === updatedOrder._id ? updatedOrder : order
           )
         );
-        // Reload orders to refresh the list
         loadOrders();
       })
       .catch((error) => {
@@ -54,12 +51,10 @@ function AdminDashboard() {
     <div>
       <h1>Welcome to the Admin Dashboard</h1>
 
-      {/* Button to load orders */}
       <button onClick={loadOrders} disabled={loading}>
         {loading ? 'Loading...' : 'Load Orders'}
       </button>
 
-      {/* Display the orders */}
       <div>
         <h2>Orders</h2>
         <ul>
@@ -73,9 +68,7 @@ function AdminDashboard() {
                   </li>
                 ))}
               </ul>
-              {/* Conditionally display the order status */}
               {order.status && <div>Order Status: {order.status}</div>}
-              {/* Button to mark the order as "Sent" */}
               <button onClick={() => updateOrderStatus(order._id)}>Mark as Sent</button>
             </li>
           ))}

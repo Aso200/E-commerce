@@ -19,7 +19,6 @@ function PaymentForm({ onValidChange }: PaymentFormProps) {
   const years = Array.from({ length: 27 }, (_, i) => String(2023 + i));
 
   useEffect(() => {
-    // Check if all inputs are valid and send the result to the parent component
     onValidChange(isCardNumberValid && isCvvValid && selectedMonth !== '' && selectedYear !== '');
   }, [isCardNumberValid, isCvvValid, selectedMonth, selectedYear, onValidChange]);
 
