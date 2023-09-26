@@ -30,8 +30,8 @@ function Dashboard() {
     return (
         <div>
             <h1>Välkommen</h1>
-            <button onClick={togglePurchaseHistory}>Mina köp</button>
-            <button onClick={toggleSettings}>Inställningar</button>
+            <button className='ButtonStyling' onClick={togglePurchaseHistory}>Mina köp</button>
+            <button className='ButtonStyling' onClick={toggleSettings}>Inställningar</button>
             <LogOutButton onLogout={handleLogout} />
             {showPurchaseHistory && <PurchaseHistory purchases={[]} />}
             {showSettings && <Settings customerInfo={customerInfo} />}

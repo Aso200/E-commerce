@@ -76,17 +76,18 @@ p {
     margin-top: 20px;
 }
 .productImg {
-  width: 20%;
+  width: 30%;
 }
 #cartItemDetails {
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
 }
 .cartItem {
   padding: 1%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   #smallStyling {
     width: 100% !important;
   }

@@ -63,8 +63,8 @@ function PayPage(props: any) {
   const orderInformationSend = () => {
     if (validSwish || validCard) {
       const cartData = localStorage.getItem("cart");
-      if (!cartData) {
-        alert("Your cart empty!");
+      if (!cartData || cart.length === 0) {
+        alert("Your cart is empty!");
         return;
       }
   
