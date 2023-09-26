@@ -5,14 +5,14 @@ import './Mainpage/Mainpage.css';
 function Footer () {
     return (
         <div id='footern'>
-            <Link id='footerLink' to="/kontakt">
-            <h3>Kontakta oss</h3>
+            <Link id='footerLink' to="/Contact">
+            <h3>Contact us</h3>
             </Link>
-            <Link id='footerLink' to="/policy">
-            <h3>Våran policy</h3>
+            <Link id='footerLink' to="/Policy">
+            <h3>Privacy Policy</h3>
             </Link>
-            <Link id='footerLink' to="/donera">
-            <h3>Donera till barn i nöd</h3>
+            <Link id='footerLink' to="/About us">
+            <h3>About us</h3>
             </Link>
         </div>
     );
