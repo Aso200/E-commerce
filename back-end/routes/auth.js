@@ -17,8 +17,15 @@ router.post("/", async (req, res, next) => {
     }
 
     if (user.password === password) {
-      let userInfo = [user.email, user.name, user.phoneNumber, user.address, user._id]
-      return res.status(200).json({ userInfo });
+      let userInfo = {
+        email: user.email,
+        name: user.name,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
+        _id: user._id,
+        isAdmin: user.isAdmin, // Include isAdmin status in the response
+      };
+      return res.status(200).json(userInfo);
     } else {
       return res.status(401).json({ message: "Invalid email or password" });
     }

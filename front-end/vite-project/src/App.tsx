@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Mainpage from './Mainpage/Mainpage';
 import Products from './Products/Products';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 import PayPage from './CartPayment/PayPage';
@@ -10,7 +10,7 @@ import { Category, Product } from './Products/Product';
 import Login from './Users/Login';
 import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
-
+import AdminDashboard from './Admin/admindashboard';
 
 function App() {
   // State och funktioner för att hantera varukorg och produkter.
@@ -79,59 +79,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/products"
-          element={
-            <div>
-              <Header cart={cart} />
-              <Products categories={categories} addToCart={addToCart} />
-            </div>
-          }
-        />
-        <Route
-          path="/Login" 
-          element={
-            <div>
-              <Header cart={cart} />
-              <Login /> 
-            </div>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <div>
-              <Header cart={cart} />
-              <Dashboard /> 
-            </div>
-          }
-        />
-        <Route
-          path="/register" 
-          element={
-            <div>
-              <Header cart={cart} />
-              <Registration />
-            </div>
-          }
-        />
         <Route path="/" element={<Mainpage />} />
-        <Route
-        path='/CartPaymentPage'
-        element={
-          <div>
-            <Header cart={cart}/>
-        <CartPaymentPage cart={cart} updateCart={updateCart}/>
-        </div>
-        }/>
-                <Route
-        path='/PayPage'
-        element={
-          <div>
-            <Header cart={cart}/>
-        <PayPage cart={cart} updateCart={updateCart}/>
-        </div>
-        }/>
+        <Route path="/products" element={<div><Header cart={cart} /><Products categories={categories} addToCart={addToCart} /></div>} />
+        <Route path="/admin-dashboard" element={<div><Header cart={cart} /><AdminDashboard /></div>} />
+        <Route path="/Login" element={<div><Header cart={cart} /><Login /></div>} />
+        <Route path="/register" element={<div><Header cart={cart} /><Registration /></div>} />
+        <Route path="/CartPaymentPage" element={<div><Header cart={cart} /><CartPaymentPage cart={cart} updateCart={updateCart} /></div>} />
+        <Route path="/PayPage" element={<div><Header cart={cart} /><PayPage cart={cart} updateCart={updateCart} /></div>} />
+        <Route path="/dashboard" element={<div><Header cart={cart} /><Dashboard /></div>} />
       </Routes>
     </Router>
   );

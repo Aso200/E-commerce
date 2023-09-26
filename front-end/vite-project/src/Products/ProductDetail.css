@@ -14,7 +14,7 @@
 
 .product-detail-content {
     background-color: white;
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
     padding: 20px;
     border-radius: 8px;
@@ -28,7 +28,7 @@
 
 .product-detail img {
     max-width: 500px;
-    height: 500px;
+    height: 400px;
     margin-bottom: 10px;
     @media (max-width: 768px) {
         max-height: 400px; 

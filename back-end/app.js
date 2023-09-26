@@ -9,7 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var cartRouter = require('./routes/cart');
-var orderRouter = require('./routes/order')
+var orderRouter = require('./routes/order');
+var getOrders = require('./routes/getOrders');
 const authRouter = require('./routes/auth');
 var { connectToMongoDB } = require('./db');
 
@@ -34,16 +35,16 @@ connectToMongoDB();
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
-app.use('/', cartRouter)
-app.use('/order', orderRouter)
+app.use('/cart', cartRouter); // Fixed the route path here
+app.use('/order', orderRouter); // Use the orderRouter for /order routes
 app.use('/auth', authRouter);
+app.use('/getOrders', getOrders);
 
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
 app.use(function(err, req, res, next) {
-
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
