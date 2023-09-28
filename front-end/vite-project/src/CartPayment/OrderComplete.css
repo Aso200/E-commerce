@@ -1,0 +1,11 @@
+#orderCompleteWrapper {
+    display: flex;
+    justify-content: center;
+}
+.homeBtn {
+    width: 20%;
+    height: 30%;
+    background-color: #080D38;
+    color: white;
+    font-size: 20px;
+}

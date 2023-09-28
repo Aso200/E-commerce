@@ -71,7 +71,8 @@ function PayPage(props: any) {
       const userInformation = JSON.parse(localStorage.getItem("userInformation") || '{}');
       const userID = userInformation._id;
       const total = calculateTotalPrice();
-  
+      console.log(userInformation)
+
       const orderData = {
         items: cart.map((item: any) => ({
           name: item.name,
@@ -79,6 +80,12 @@ function PayPage(props: any) {
           id: item.id,
           quantity: item.quantity,
         })),
+        shippingData: {
+          name: userInformation.name,
+          email: emailInput,
+          phoneNumber: userInformation.phoneNumber,
+          address: addressInput,
+        },
         userID: userID,
         total: total,
       };
@@ -96,11 +103,10 @@ function PayPage(props: any) {
           return response.json();
         })
         .then((data) => {
-          console.log('POST request successful:', data);
-  
+          console.log('Order ID:', data.orderId);
+          navigate('/OrderComplete', { state: { orderId: data.orderId, orderData: orderData } });
+          
           localStorage.removeItem('cart');
-          alert("Order sent!");
-          navigate('/products')
           props.updateCart([]);
           setOrderDetails([]);
         })
@@ -206,7 +212,7 @@ function PayPage(props: any) {
             />
           )}
           <div id='payDiv' style={{ display: "flex", width: "100%", flexFlow: "row wrap", justifyContent: "center" }}>
-            <p style={{ width: "100%", textAlign: "center" }}>Total Price: {totalPrice} kr</p> <button id='sendOrderBtn' onClick={orderInformationSend}>Send order</button>
+            <p style={{ width: "100%", textAlign: "center" }}>Total price including VAT: {totalPrice} kr</p> <button id='sendOrderBtn' onClick={orderInformationSend}>Send order</button>
           </div>
         </div>
       </div>

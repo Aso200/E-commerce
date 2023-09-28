@@ -12,7 +12,7 @@ import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
 import Footer from './Footer';
 import AdminDashboard from './Admin/admindashboard';
-
+import OrderComplete from './CartPayment/OrderComplete';
 function App() {
   const updateCart = (updatedCart: Product[]) => {
     setCart(updatedCart);
@@ -88,6 +88,7 @@ function App() {
       <Routes> 
         <Route path="/" element={<div><Header cart={cart} /><Mainpage /><Footer /></div>} />
         <Route path="/products" element={<div><Header cart={cart} /><Products categories={categories} addToCart={addToCart} /><Footer /></div>} />
+        <Route path="/OrderComplete" element={<div><Header cart={cart} /><OrderComplete /><Footer /></div>} />
         <Route path="/admin-dashboard" element={<div><Header cart={cart} /><AdminDashboard /><Footer /></div>} />
         <Route path="/Login" element={<div><Header cart={cart} /><Login /><Footer /></div>} />
         <Route path="/register" element={<div><Header cart={cart} /><Registration /><Footer /></div>} />
