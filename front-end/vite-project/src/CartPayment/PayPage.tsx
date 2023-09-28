@@ -190,7 +190,7 @@ function PayPage(props: any) {
         </div>
         <div id="paymentInfo" className="stylingForDiv">
           <button id="masterCardBtn" className="paymentBtn" onClick={selectedCardPay}>
-            <img src="https://cvasino.se/image/cache/data/payments/svg/mastercard-1200x630sh.svg" alt="MasterCard" />
+            <img src="https://sverigekontanter.se/wp-content/uploads/2015/12/MasterCard_early_1990s_logo.png" alt="MasterCard" />
           </button>
           <button id="swishBtn" className="paymentBtn" onClick={selectedSwishPay}>
             <img src="https://www.vectorlogo.zone/logos/getswishse/getswishse-ar21.png" alt="Swish" />
