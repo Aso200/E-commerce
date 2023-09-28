@@ -13,6 +13,7 @@ import Registration from './Users/register';
 import Footer from './Footer';
 import AdminDashboard from './Admin/admindashboard';
 
+
 function App() {
   const updateCart = (updatedCart: Product[]) => {
     setCart(updatedCart);
@@ -94,6 +95,7 @@ function App() {
         <Route path="/CartPaymentPage" element={<div><Header cart={cart} /><CartPaymentPage cart={cart} updateCart={updateCart} /><Footer /></div>} />
         <Route path="/PayPage" element={<div><Header cart={cart} /><PayPage cart={cart} updateCart={updateCart} /><Footer /></div>} />
         <Route path="/dashboard" element={<div><Header cart={cart} /><Dashboard /><Footer /></div>} />
+        <Route path="/admindashboard" element={<div><Header cart={cart} /><AdminDashboard /><Footer /></div>} />
       </Routes>
     </Router>
   );

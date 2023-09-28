@@ -1,81 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { Order } from './order';
+import React, { useEffect, useState } from 'react';
 
-function AdminDashboard() {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(false);
+interface Product {
+  id: number;
+  name: string;
+  description?: string;
+  price: number;
+  image: string;
+  sizes: string[];
+}
 
-  const loadOrders = () => {
-    setLoading(true);
-    fetch('http://localhost:3000/getOrders')
-      .then((response) => response.json())
-      .then((data) => {
-        setOrders(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error loading orders:', error);
-        setLoading(false);
-      });
-  };
+interface Category {
+  id: number;
+  name: string;
+  products: Product[];
+}
 
-  const updateOrderStatus = (orderId) => {
-    const newStatus = 'Sent';
+interface ProductState {
+  products: Category[];
+  loading: boolean;
+  error: string | null;
+}
 
-    fetch(`http://localhost:3000/getOrders/${orderId}/updateStatus`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ newStatus }),
-    })
-      .then((response) => response.json())
-      .then((updatedOrder) => {
-        setOrders((prevOrders) =>
-          prevOrders.map((order) =>
-            order._id === updatedOrder._id ? updatedOrder : order
-          )
-        );
-        loadOrders();
-      })
-      .catch((error) => {
-        console.error('Error updating order status:', error);
-      });
-  };
+const AdminDashboard: React.FC = () => {
+  const [state, setState] = useState<ProductState>({
+    products: [],
+    loading: true,
+    error: null,
+  });
 
   useEffect(() => {
-
+    fetch('http://localhost:3000/products/')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setState({
+          products: data[0].categories,
+          loading: false,
+          error: null,
+        });
+      })
+      .catch((error) => {
+        setState({
+          products: [],
+          loading: false,
+          error: error.message,
+        });
+      });
   }, []);
+
+  if (state.loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (state.error) {
+    return <div>Error: {state.error}</div>;
+  }
 
   return (
     <div>
-      <h1>Welcome to the Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <ul>
+        {state.products.map((category) => (
+          <li key={category.id}>
+            <h1>CATEGORY: {category.name}</h1>
 
-      <button onClick={loadOrders} disabled={loading}>
-        {loading ? 'Loading...' : 'Load Orders'}
-      </button>
-
-      <div>
-        <h2>Orders</h2>
-        <ul>
-          {orders.map((order) => (
-            <li key={order._id} style={{ marginBottom: '20px' }}>
-              Order ID: {order._id}, <br /> Total Amount: {order.total}
-              <ul>
-                {order.items.map((item, index) => (
-                  <li key={index}>
-                    Product: {item.name}, Size: {item.selectedSize}, Quantity: {item.quantity}
-                  </li>
-                ))}
-              </ul>
-              {order.status && <div>Order Status: {order.status}</div>}
-              <button onClick={() => updateOrderStatus(order._id)}>Mark as Sent</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+            <div style={{ marginTop: "8px", marginBottom: "20px" }}>
+              {category.products.map((product) => (
+                <div key={product.id}>
+                  <span>{product.id}</span>
+                  <img src={product.image} alt="product image" style={{ height: 200, width: 100 }} />
+                  <span>{product.name}</span>
+                  <span>{product.description}</span>
+                  <span>{product.price}</span>
+                  {product.sizes.map((size) => (
+                    <div key={size}>
+                      size: {size}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default AdminDashboard;

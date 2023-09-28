@@ -26,6 +26,8 @@ function Settings({ customerInfo }: SettingProps) {
         e.preventDefault();
     };
 
+    
+    
     return (
         <div className="settings-container">
             <h2>Settings</h2>
