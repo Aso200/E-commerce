@@ -1,0 +1,25 @@
+.productImg {
+    width: 100%;
+    border-radius: 10px;
+}
+.productWrapper {
+    width: 20%;
+    text-align: center;
+    border: 1px solid black;
+    margin-bottom: 1%;
+    border-radius: 10px;
+}
+.productWrapper button{
+    width: 30%;
+    background-color: #080D38;
+    color: white;
+    font-size: 20px;
+}
+#productsPageWrapper {
+    margin-top: 5%;
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    gap: 10%;
+    justify-content: center;
+}

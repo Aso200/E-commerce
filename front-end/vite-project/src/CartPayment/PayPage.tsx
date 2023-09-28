@@ -123,7 +123,10 @@ function PayPage(props: any) {
   }, [cart, selectedShippingMethod]);
 
   const emailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailInput(event.target.value);
+    const newValue = event.target.value;
+    setEmailInput(newValue);
+    const isValidEmail = newValue.includes("@");
+    setValidSwish(isValidEmail);
   };
 
   const addressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
