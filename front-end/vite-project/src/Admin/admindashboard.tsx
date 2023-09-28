@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+// AdminDashboard.js
+
+import DeleteProduct from "./productdelete";
+
+import React, { useEffect, useState } from "react";
 
 interface Product {
   id: number;
@@ -29,10 +33,10 @@ const AdminDashboard: React.FC = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost:3000/products/')
+    fetch("http://localhost:3000/products/")
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
@@ -71,15 +75,19 @@ const AdminDashboard: React.FC = () => {
             <div style={{ marginTop: "8px", marginBottom: "20px" }}>
               {category.products.map((product) => (
                 <div key={product.id}>
+                  <DeleteProduct productId={product.id} />{" "}
+                  {/* Pass the product ID */}
                   <span>{product.id}</span>
-                  <img src={product.image} alt="product image" style={{ height: 200, width: 100 }} />
+                  <img
+                    src={product.image}
+                    alt="product image"
+                    style={{ height: 200, width: 100 }}
+                  />
                   <span>{product.name}</span>
                   <span>{product.description}</span>
                   <span>{product.price}</span>
                   {product.sizes.map((size) => (
-                    <div key={size}>
-                      size: {size}
-                    </div>
+                    <div key={size}>size: {size}</div>
                   ))}
                 </div>
               ))}
