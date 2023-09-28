@@ -3,16 +3,15 @@ import './AdminProducts.css';
 import AdminProductEditor from './AdminProductEditor';
 
 interface Product {
-  _id: string; // Adjust the type based on your MongoDB schema
+  _id: string;
   name: string;
   price: $numberInt;
   image: string;
-  // Add other properties here
 }
 
 function AdminProducts() {
-  const [products, setProducts] = useState<Product[]>([]); // Define the type
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Define the type
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:3000/products')

@@ -1,29 +1,25 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 function AdminAddProduct() {
-  // Define state variables to store the product details
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [category, setCategory] = useState<string>('');
-  const sizes = ['XS', 'S', 'M', 'L', 'XL']; // Permanent array with sizes
+  const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const [image, setImageSrc] = useState<string>('');
 
-  // Function to handle form submission and send data to the backend
+
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    // Create a product object with the form data
     const productData = {
       name,
       description,
-      price: { $numberInt: price }, // Send price as a BSON NumberInt
+      price: { $numberInt: price }, 
       category,
-      sizes, // All products have the same standard sizes
+      sizes,
       image,
     };
 console.log(image)
-    // Send a POST request to your backend route for inserting a product
     try {
       const response = await fetch(`http://localhost:3000/products/add`, {
         method: 'POST',
@@ -34,16 +30,13 @@ console.log(image)
       });
 
       if (response.ok) {
-        // Product was successfully inserted
         alert('Product inserted successfully');
-        // Clear the form fields
         setName('');
         setDescription('');
         setPrice('');
         setCategory('');
         setImageSrc('');
       } else {
-        // Handle error cases here
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
