@@ -26,6 +26,8 @@ ul {
   margin: 0;
 }
 
+
+
 .product-list {
   flex: 2;
   padding: 16px;
@@ -49,7 +51,7 @@ ul {
 
 .product-list img {
   max-width: 100%;
-  height: auto;
+  height: 500px;
   cursor: pointer;
 }
 

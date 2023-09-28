@@ -12,7 +12,7 @@ interface InputLabelSelectProps {
 }
 
 const inputLabelSelectStyles = {
-  width: '100%', 
+  width: '100%',
   padding: 0,
 };
 
@@ -30,6 +30,7 @@ const InputLabelSelect: React.FC<InputLabelSelectProps> = ({
         label={label}
         value={value}
         onChange={onChange}
+        labelId={`${id}-label`} 
         inputProps={{
           id,
           style: inputLabelSelectStyles,
