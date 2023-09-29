@@ -20,8 +20,9 @@ function SwishPayPage({ number, onValidSwishChange }: SwishPayPageProps) {
   }, [editedNumber, onValidSwishChange]);
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value.slice(0, 10);
-    setEditedNumber(newValue);
+    const newValue = event.target.value.replace(/\D/g, '');
+    const slicedValue = newValue.slice(0, 10);
+    setEditedNumber(slicedValue);
   };
 
   return (

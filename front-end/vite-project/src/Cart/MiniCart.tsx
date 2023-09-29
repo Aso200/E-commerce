@@ -23,13 +23,13 @@ function MiniCart(props: CartProps) {
  const calculateTotalPrice = () => {
     let totalPrice = 0;
     for (const cartItem of cart) {
-      totalPrice += cartItem.price * cartItem.quantity;
+      totalPrice += cartItem.price.$numberInt * cartItem.quantity; 
     }
     return totalPrice;
   };
 
   const calculateCartItemPrice = (cartItem: CartItems) => {
-    return cartItem.price * cartItem.quantity;
+    return cartItem.price.$numberInt * cartItem.quantity;
   };
 const toggleOverlay = () => {
   setIsActive(!isActive);
@@ -48,8 +48,8 @@ const toggleOverlay = () => {
               <p>{cartItem.name}</p>
               <p>Size: {cartItem.selectedSize}</p>
               <p>
-                Quantity {cartItem.quantity}st / {calculateCartItemPrice(cartItem)} kr
-              </p>
+  Quantity {cartItem.quantity}st / {calculateCartItemPrice(cartItem)} SEK
+</p>
             </div>
           ))}
           <p>Total price: {calculateTotalPrice()} kr</p>

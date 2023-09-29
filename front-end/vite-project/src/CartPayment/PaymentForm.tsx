@@ -24,14 +24,16 @@ function PaymentForm({ onValidChange }: PaymentFormProps) {
 
   const handleCardNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputCardNumber = event.target.value;
-    setCardNumber(inputCardNumber);
-    setIsCardNumberValid(inputCardNumber.length === 12);
+    const onlyNumbers = inputCardNumber.replace(/\D/g, '');
+    setCardNumber(onlyNumbers);
+    setIsCardNumberValid(onlyNumbers.length === 12);
   };
 
   const handleCvvChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputCvv = event.target.value;
-    setCvv(inputCvv);
-    setIsCvvValid(inputCvv.length === 3);
+    const onlyNumbers = inputCvv.replace(/\D/g, '');
+    setCvv(onlyNumbers);
+    setIsCvvValid(onlyNumbers.length === 3);
   };
 
   const handleMonthChange = (event: ChangeEvent<HTMLSelectElement>) => {
