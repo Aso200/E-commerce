@@ -47,6 +47,7 @@ console.log(image)
 
   return (
     <div>
+      <div style={{textAlign:"center"}}>
       <h2>Add a New Product</h2>
       <form onSubmit={handleFormSubmit}>
         <div>
@@ -100,6 +101,7 @@ console.log(image)
         </div>
         <button type="submit">Add Product</button>
       </form>
+      </div>
     </div>
   );
 }
