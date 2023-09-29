@@ -8,7 +8,7 @@ function AdminProductEditor({ product, onClose }) {
     setEditedProduct({ ...product });
   }, [product]);
 
-  const handleInputChange = (e :any) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     const parsedValue = name === 'price' ? parseFloat(value) : value;
 
@@ -18,7 +18,7 @@ function AdminProductEditor({ product, onClose }) {
     });
   };
 
-  const handleSubmit = (e :any) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const formattedProduct = {
@@ -37,6 +37,7 @@ function AdminProductEditor({ product, onClose }) {
       .then((response) => response.json())
       .then((data) => {
         alert('Product updated successfully');
+        onClose(); 
       })
       .catch((error) => {
         console.error('Error updating product:', error);
@@ -52,7 +53,7 @@ function AdminProductEditor({ product, onClose }) {
     <div>
       <div id='overlay' onClick={handleClose}></div>
       <div id='AdminProductEditorWrapper'>
-        <h2 style={{width: "100%", textAlign:"center"}}>Admin Product Editor</h2>
+        <h2 style={{ width: "100%", textAlign: "center" }}>Admin Product Editor</h2>
         <form id='formStyling' onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Product Name:</label>
@@ -76,7 +77,7 @@ function AdminProductEditor({ product, onClose }) {
           </div>
           <div>
             <label htmlFor="description">Description:</label>
-            <br/>
+            <br />
             <textarea
               id="description"
               name="description"

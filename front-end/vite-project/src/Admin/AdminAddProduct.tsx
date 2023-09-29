@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import './AdminAddProduct.css'; // Import your CSS file
 
 function AdminAddProduct() {
   const [name, setName] = useState<string>('');
@@ -8,18 +9,17 @@ function AdminAddProduct() {
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const [image, setImageSrc] = useState<string>('');
 
-
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const productData = {
       name,
       description,
-      price: { $numberInt: price }, 
+      price: { $numberInt: price },
       category,
       sizes,
       image,
     };
-console.log(image)
+
     try {
       const response = await fetch(`http://localhost:3000/products/add`, {
         method: 'POST',
@@ -46,10 +46,10 @@ console.log(image)
   };
 
   return (
-    <div>
+    <div className="admin-add-product">
       <h2>Add a New Product</h2>
       <form onSubmit={handleFormSubmit}>
-        <div>
+        <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input
             type="text"
@@ -59,7 +59,7 @@ console.log(image)
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="description">Description:</label>
           <textarea
             id="description"
@@ -68,7 +68,7 @@ console.log(image)
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="price">Price:</label>
           <input
             type="number"
@@ -78,7 +78,7 @@ console.log(image)
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="category">Category:</label>
           <input
             type="text"
@@ -88,7 +88,7 @@ console.log(image)
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="imageSrc">Image Source:</label>
           <input
             type="text"

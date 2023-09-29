@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartItems } from '../Cart/MiniCart';
 import PaymentForm from './PaymentForm';
 import SwishPayPage from './SwishPayPage';
@@ -26,6 +26,12 @@ function PayPage(props: any) {
   const [selectedPayment, setPayment] = useState<string>('');
   const [showPaymentForm, setShowPaymentForm] = useState<boolean>(false);
   const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>('instabox');
+  
+  const shippingMethodNames: { [key: string]: string } = {
+    instabox: 'Instabox',
+    budbee: 'Budbee',
+    postnord: 'PostNord',
+  };
 
   const handleShippingMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedShippingMethod(event.target.value);
@@ -39,26 +45,39 @@ function PayPage(props: any) {
   };
 
   
+  const calculateShippingFee = (method: string) => {
+    if (method === 'instabox') {
+      return 150;
+    } else if (method === 'budbee') {
+      return 200;
+    } else if (method === 'postnord') {
+      return 1000;
+    }
+    return 0;
+  };
 
   const calculateTotalPrice = () => {
     let total = 0;
-
+  
     for (let i = 0; i < cart.length; i++) {
       const item = cart[i];
       const itemTotal = item.price.$numberInt * item.quantity;
       total += itemTotal;
     }
-
+  
     let shippingFee = 0;
     if (selectedShippingMethod === 'instabox') {
-      shippingFee = 150;
+      shippingFee = calculateShippingFee('instabox');
     } else if (selectedShippingMethod === 'budbee') {
-      shippingFee = 200;
+      shippingFee = calculateShippingFee('budbee');
     } else if (selectedShippingMethod === 'postnord') {
-      shippingFee = 1000;
+      shippingFee = calculateShippingFee('postnord'); 
     }
     total += shippingFee;
-
+  
+    console.log('Total:', total); 
+    console.log('Shipping Fee:', shippingFee);
+  
     return total;
   };
 
@@ -73,23 +92,26 @@ function PayPage(props: any) {
       const userInformation = JSON.parse(localStorage.getItem("userInformation") || '{}');
       const userID = userInformation._id;
       const total = calculateTotalPrice();
-      console.log(userInformation)
-
+      const shippingFee = calculateShippingFee(selectedShippingMethod); 
+  
       const orderData = {
         items: cart.map((item: any) => ({
           name: item.name,
           selectedSize: item.selectedSize,
           id: item.id,
           quantity: item.quantity,
+          price: item.price.$numberInt, 
         })),
         shippingData: {
           name: userInformation.name,
           email: emailInput,
           phoneNumber: userInformation.phoneNumber,
           address: addressInput,
+          shippingMethod: shippingMethodNames[selectedShippingMethod], 
         },
         userID: userID,
-        total: total,
+        total: total, 
+        shippingFee: shippingFee, 
       };
   
       fetch("http://localhost:3000/order/", {
@@ -100,6 +122,9 @@ function PayPage(props: any) {
         body: JSON.stringify(orderData),
       })
         .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to send order');
+          }
           setValidSwish(false);
           setValidCard(false);
           return response.json();
@@ -107,17 +132,19 @@ function PayPage(props: any) {
         .then((data) => {
           console.log('Order ID:', data.orderId);
           navigate('/OrderComplete', { state: { orderId: data.orderId, orderData: orderData } });
-          
+  
           localStorage.removeItem('cart');
           props.updateCart([]);
           setOrderDetails([]);
         })
         .catch((error) => {
-          console.error('Error sending order:', error);
+          console.error('Error sending order:', error.message);
+ 
         });
+    } else {
+ 
     }
   };
-  
   
   useEffect(() => {
     const total = calculateTotalPrice();

@@ -1,0 +1,72 @@
+.orders-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .order {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .order-id {
+    font-size: 24px;
+  }
+
+  .green-text {
+    color: green;
+  }
+
+  .red-text {
+    color: red;
+  }
+
+  .total-amount {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #555;
+  }
+
+  .order-status {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .mark-sent-button {
+    background-color: #080;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+
+  .mark-sent-button:hover {
+    background-color: #060;
+  }
+
+  .item-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .item {
+    margin-bottom: 5px;
+  }
+
+  .product-name {
+    font-weight: bold;
+  }
+
+  .item-details {
+    font-size: 14px;
+    color: #555;
+  }

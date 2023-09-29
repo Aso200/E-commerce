@@ -54,7 +54,7 @@ function AdminProducts() {
   };
 
   return (
-    <div>
+    <div className="king">
       <div id="productsPageWrapper">
         {products.map((product, index) => (
           <div className="productWrapper" key={index}>

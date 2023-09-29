@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './AdminOrders.css';
 
 interface Order {
   _id: string;
@@ -7,8 +8,17 @@ interface Order {
     name: string;
     selectedSize: string;
     quantity: number;
+    price: number;
   }[];
   status: string | null;
+  shippingMethod: string;
+  shippingFee: number;
+  shippingData: {
+    name: string;
+    address: string;
+    phoneNumber: string;
+    email: string;
+  };
 }
 
 function AdminOrders(): JSX.Element {
@@ -59,21 +69,50 @@ function AdminOrders(): JSX.Element {
 
   return (
     <div>
-      <h2>Orders</h2>
-
-      <ul>
+      <ul className="orders-container">
         {orders.map((order) => (
-          <li key={order._id} style={{ marginBottom: '20px' }}>
-            Order ID: {order._id}, <br /> Total Amount: {order.total}
-            <ul>
+          <li
+            key={order._id}
+            className={`order ${order.status === 'Sent' ? 'sent' : 'not-sent'}`}
+          >
+            <div
+              className={`order-id ${
+                order.status === 'Sent' ? 'green-text' : 'red-text'
+              }`}
+            >
+              Order ID: {order._id}
+            </div>
+            <div className="total-amount">Total Amount: {order.total} kr</div>
+            <div className="shipping-info">
+              Shipping Method: {order.shippingData.shippingMethod} (Fee: {order.shippingFee} kr)
+            </div>
+            <div className="shipping-data">
+              <p>Name: {order.shippingData.name}</p>
+              <p>Email: {order.shippingData.email}</p>
+              <p>Phone Number: {order.shippingData.phoneNumber}</p>
+              <p>Address: {order.shippingData.address}</p>
+            </div>
+            <ul className="item-list">
               {order.items.map((item, index) => (
-                <li key={index}>
-                  Product: {item.name}, Size: {item.selectedSize}, Quantity: {item.quantity}
+                <li key={index} className="item">
+                  <div className="product-name">Product: {item.name}</div>
+                  <div className="item-details">
+                    Size: {item.selectedSize}, Quantity: {item.quantity}, Price: {item.price} kr
+                  </div>
                 </li>
               ))}
             </ul>
-            {order.status && <div>Order Status: {order.status}</div>}
-            <button onClick={() => updateOrderStatus(order._id)}>Mark as Sent</button>
+            {order.status && (
+              <div className="order-status">Order Status: {order.status}</div>
+            )}
+            {order.status !== 'Sent' && (
+              <button
+                className="mark-sent-button"
+                onClick={() => updateOrderStatus(order._id)}
+              >
+                Mark as Sent
+              </button>
+            )}
           </li>
         ))}
       </ul>

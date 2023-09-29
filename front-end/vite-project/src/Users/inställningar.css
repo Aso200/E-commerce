@@ -1,11 +1,3 @@
-/* h1 {
-    font-weight: normal;
-    font-size: 28px;
-    color: #2C2C2C;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #E5E5E5;
-    padding-bottom: 10px;
-} */
 
 #labelName {
     font-weight: normal;
@@ -17,10 +9,6 @@
 
 
 @media (max-width: 768px) {
-    /* h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    } */
 
     #labelName {
         font-size: 14px;
@@ -108,7 +96,7 @@
     text-align: center;
 }
 
-/* Optional - you can add a small animation to make it fade in */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
