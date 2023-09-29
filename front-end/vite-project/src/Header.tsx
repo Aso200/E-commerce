@@ -45,17 +45,6 @@ function Header({ cart }) {
       <Link to="/">
         <h1 id='titel'>Madagascar</h1>
       </Link>
-      <div id='linksen'>
-        <Link id='headerLink' to="/news">
-          <h3>News</h3>
-        </Link>
-        <Link id='headerLink' to="/categories">
-          <h3>Categories</h3>
-        </Link>
-        <Link id='headerLink' to="/outlet">
-          <h3>Outlet</h3>
-        </Link>
-      </div>
       <MiniCart cart={cart} />
     </div>
   );
