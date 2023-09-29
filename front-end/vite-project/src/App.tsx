@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Mainpage from './Mainpage/Mainpage';
 import Products from './Products/Products';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 import PayPage from './CartPayment/PayPage';
-import { Category, Product } from './Products/Product';
+import { Product } from './Products/Product'; 
 import Login from './Users/Login';
 import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
 import Footer from './Footer';
 import AdminDashboard from './Admin/admindashboard';
 import OrderComplete from './CartPayment/OrderComplete';
+
 function App() {
   const updateCart = (updatedCart: Product[]) => {
     setCart(updatedCart);
   };
+
   const [cart, setCart] = useState<Product[]>(() => {
     try {
       const storedCart = localStorage.getItem('cart');
@@ -27,40 +29,30 @@ function App() {
     }
   });
 
-  useEffect(() => {
-    fetch('http://localhost:3000/products/')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Fetched products data:', data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-  
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     fetch('http://localhost:3000/products/')
       .then((response) => response.json())
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const categoriesData = data[0].categories;
-          setCategories(categoriesData);
+        if (Array.isArray(data)) {
+          console.log('Fetched products:', data);
+          setProducts(data);
         } else {
           console.error('Dataformatet är inte som förväntat.');
         }
       })
       .catch((error) => {
-        console.error('Fel vid hämtning av data:', error);
+        console.error('Error fetching data:', error);
       });
   }, []);
 
   const addToCart = (productToAdd: Product) => {
     const existingProductIndex = cart.findIndex(
-      (product) => product.id === productToAdd.id && product.selectedSize === productToAdd.selectedSize
+      (product) =>
+        product._id === productToAdd._id && product.selectedSize === productToAdd.selectedSize
     );
-
+  
     if (existingProductIndex !== -1) {
       const updatedCart = [...cart];
       updatedCart[existingProductIndex] = {
@@ -73,7 +65,7 @@ function App() {
         ...cart,
         { ...productToAdd, quantity: 1, selectedSize: productToAdd.selectedSize },
       ];
-
+  
       try {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         setCart(updatedCart);
@@ -85,18 +77,21 @@ function App() {
 
   return (
     <Router>
-      <Routes> 
-        <Route path="/" element={<div><Header cart={cart} /><Mainpage /><Footer /></div>} />
-        <Route path="/products" element={<div><Header cart={cart} /><Products categories={categories} addToCart={addToCart} /><Footer /></div>} />
-        <Route path="/OrderComplete" element={<div><Header cart={cart} /><OrderComplete /><Footer /></div>} />
-        <Route path="/admin-dashboard" element={<div><Header cart={cart} /><AdminDashboard /><Footer /></div>} />
-        <Route path="/Login" element={<div><Header cart={cart} /><Login /><Footer /></div>} />
-        <Route path="/register" element={<div><Header cart={cart} /><Registration /><Footer /></div>} />
-        <Route path="/CartPaymentPage" element={<div><Header cart={cart} /><CartPaymentPage cart={cart} updateCart={updateCart} /><Footer /></div>} />
-        <Route path="/PayPage" element={<div><Header cart={cart} /><PayPage cart={cart} updateCart={updateCart} /><Footer /></div>} />
-        <Route path="/dashboard" element={<div><Header cart={cart} /><Dashboard /><Footer /></div>} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<><Header cart={cart} /><Mainpage /><Footer /></>} />
+      <Route path="/products" element={<><Header cart={cart} /><Products products={products} addToCart={addToCart} /><Footer /></>} />
+      <Route path="/admin-dashboard" element={<><Header cart={cart} /><AdminDashboard /><Footer /></>} />
+      <Route path="/Login" element={<><Header cart={cart} /><Login /><Footer /></>} />
+      <Route path="/register" element={<><Header cart={cart} /><Registration /><Footer /></>} />
+      <Route path="/CartPaymentPage" element={<><Header cart={cart} /><CartPaymentPage cart={cart} updateCart={updateCart} /><Footer /></>} />
+      <Route path="/PayPage" element={<><Header cart={cart} /><PayPage cart={cart} updateCart={updateCart} /><Footer /></>} />
+      <Route path="/dashboard" element={<><Header cart={cart} /><Dashboard /><Footer /></>} />
+      <Route path="/nyheter" element={<><Header cart={cart} /><Footer /></>} />
+      <Route path="/kategorier" element={<><Header cart={cart} /><Footer /></>} />
+      <Route path="/rea" element={<><Header cart={cart} /><Footer /></>} />
+      <Route path="/OrderComplete" element={<div><Header cart={cart} /><OrderComplete /><Footer /></div>} />
+    </Routes>
+  </Router>
   );
 }
 

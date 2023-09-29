@@ -1,18 +1,14 @@
-export interface Product {
-  id: number;
+interface Product {
+  _id: string;
+  category: string;
   name: string;
-  sizes: string[];
-  price: number;
-  quantity: number;
-  image: string;
-  selectedSize?: string;
   description: string;
+  price: {
+    $numberInt: string;
+  };
+  sizes: string[];
+  id: {
+    $numberInt: string;
+  };
+  image: string;
 }
-
-
-export interface Category {
-  name: string;
-  products: Product[];
-}
-
-export default Product;

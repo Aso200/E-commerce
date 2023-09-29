@@ -38,12 +38,14 @@ function PayPage(props: any) {
     address: addressInput,
   };
 
+  
+
   const calculateTotalPrice = () => {
     let total = 0;
 
     for (let i = 0; i < cart.length; i++) {
       const item = cart[i];
-      const itemTotal = item.price * item.quantity;
+      const itemTotal = item.price.$numberInt * item.quantity;
       total += itemTotal;
     }
 

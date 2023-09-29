@@ -1,11 +1,8 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+import Button, { ButtonProps } from '@mui/material/Button';
 
-interface CustomButtonProps {
-  variant?: 'text' | 'outlined' | 'contained';
-  color?: 'default' | 'inherit' | 'primary' | 'secondary';
-  onClick?: () => void;
-  disabled?: boolean;
+interface CustomButtonProps extends ButtonProps {
+
 }
 
 const customButtonStyles = {
@@ -19,14 +16,22 @@ const customButtonStyles = {
 
 const customButtonDisabledStyles = {
   ...customButtonStyles,
-  opacity: 0.5, 
-  cursor: 'not-allowed', 
+  opacity: 0.5,
+  cursor: 'not-allowed',
 };
 
 const CustomButton: React.FC<CustomButtonProps> = ({ children, disabled, ...props }) => {
   const buttonStyles = disabled ? customButtonDisabledStyles : customButtonStyles;
 
-  return <Button style={buttonStyles} disabled={disabled} {...props}>{children}</Button>;
+  return (
+    <Button
+      style={buttonStyles}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
 };
 
 export default CustomButton;

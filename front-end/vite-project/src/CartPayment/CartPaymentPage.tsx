@@ -15,7 +15,7 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     for (const cartItem of cartItems) {
-      totalPrice += cartItem.price * cartItem.quantity;
+      totalPrice += cartItem.price.$numberInt * cartItem.quantity;
     }
     return totalPrice;
   };
@@ -54,13 +54,13 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
                 }}
               >
                 <div id='cartItemDetails'>
-                <img src={cartItem.image} className='productImg' />
+                <img src={cartItem.image} className='productImgDisplay' />
                 <div id="smallStyling" style={{marginLeft: "1%", width: "40%"}}>
                   <p>Name: {cartItem.name}</p>
-                  <p>Price: {cartItem.price} kr</p>
+                  <p>Price: {cartItem.price.$numberInt} kr</p>
                   <p>Size: {cartItem.selectedSize}</p>
                   </div>
-                  <div style={{marginLeft:"1%", width: "20%"}}>
+                  <div style={{marginLeft:"1%", width: "20%", textAlign: "center"}}>
                   <p>Quantity: {cartItem.quantity}</p>
                   <button onClick={() => minusQuantity(index)}>-</button>
                   <button onClick={() => plusQuantity(index)}>+</button>

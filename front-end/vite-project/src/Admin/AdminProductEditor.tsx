@@ -5,13 +5,11 @@ function AdminProductEditor({ product, onClose }) {
   const [editedProduct, setEditedProduct] = useState({ ...product });
 
   useEffect(() => {
-    // Update the edited product when the product prop changes
     setEditedProduct({ ...product });
   }, [product]);
 
   const handleInputChange = (e :any) => {
     const { name, value } = e.target;
-    // Parse the 'price' field as a float to ensure it's always a number
     const parsedValue = name === 'price' ? parseFloat(value) : value;
 
     setEditedProduct({
