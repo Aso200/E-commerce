@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import "./AdminProductEditor.css"
+import { Product } from '../Products/Product'; 
 
-function AdminProductEditor({ product, onClose }) {
+interface AdminProductEditorProps {
+  product: Product;
+  onClose: () => void;
+}
+
+function AdminProductEditor({ product, onClose }: AdminProductEditorProps) {
   const [editedProduct, setEditedProduct] = useState({ ...product });
 
   useEffect(() => {
     setEditedProduct({ ...product });
   }, [product]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     const parsedValue = name === 'price' ? parseFloat(value) : value;
-
+  
     setEditedProduct({
       ...editedProduct,
       [name]: parsedValue,
     });
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:any) => {
     e.preventDefault();
 
     const formattedProduct = {
@@ -36,6 +41,7 @@ function AdminProductEditor({ product, onClose }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         alert('Product updated successfully');
         onClose(); 
       })

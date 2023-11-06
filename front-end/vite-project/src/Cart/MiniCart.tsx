@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './Cart.css';
 import { Link } from 'react-router-dom';
-import Product from '../Products/Product';
+import { CartItem } from './CartItems'; 
 
-export interface CartItems extends Product {
+export interface CartItems extends CartItem {
   quantity: number;
 }
 
@@ -20,16 +20,17 @@ function MiniCart(props: CartProps) {
     setIsActive(!isActive);
   };
 
- const calculateTotalPrice = () => {
+  const calculateTotalPrice = () => {
     let totalPrice = 0;
     for (const cartItem of cart) {
-      totalPrice += cartItem.price.$numberInt * cartItem.quantity; 
+      const price = parseInt(cartItem.price.$numberInt, 10);
+      totalPrice += price * cartItem.quantity;
     }
     return totalPrice;
   };
-
   const calculateCartItemPrice = (cartItem: CartItems) => {
-    return cartItem.price.$numberInt * cartItem.quantity;
+    const price = parseInt(cartItem.price.$numberInt, 10);
+    return price * cartItem.quantity;
   };
 const toggleOverlay = () => {
   setIsActive(!isActive);
@@ -40,6 +41,7 @@ const toggleOverlay = () => {
       <div className={` ${isActive ? 'overlay' : ''}`} onClick={toggleOverlay}></div>
       <div id="miniCart">
         <button id="shoppingCartIcon" style={{ textAlign: 'center' }} onClick={toggleClassName}>
+        <p>{cart.reduce((totalQuantity, cartItem) => totalQuantity + cartItem.quantity, 0)}</p>
           <ShoppingCartIcon />
         </button>
         <div className={`CartWrap ${isActive ? 'CartWrapShow' : ''}`}>

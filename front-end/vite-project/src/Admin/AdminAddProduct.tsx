@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import './AdminAddProduct.css'; // Import your CSS file
 
 function AdminAddProduct() {

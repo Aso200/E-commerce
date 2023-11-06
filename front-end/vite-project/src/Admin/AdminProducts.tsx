@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AdminProducts.css';
 import AdminProductEditor from './AdminProductEditor';
+import { Product } from '../Products/Product'; 
 
-interface Product {
+export interface ProductRee extends Product {
   _id: string;
   name: string;
-  price: $numberInt;
   image: string;
 }
+
 
 function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -41,6 +42,7 @@ function AdminProducts() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
       })
       .catch((error) => {
@@ -51,6 +53,18 @@ function AdminProducts() {
 
   const handleCloseEditor = () => {
     setSelectedProduct(null);
+    fetch('http://localhost:3000/products')
+      .then((response) => response.json())
+      .then((data) => {
+        const processedData = data.map((product: Product) => ({
+          ...product,
+          price: parseInt(product.price.$numberInt),
+        })) as Product[];
+        setProducts(processedData);
+      })
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+      });
   };
 
   return (
@@ -60,7 +74,7 @@ function AdminProducts() {
           <div className="productWrapper" key={index}>
             <img className="productImg" src={product.image} alt={product.name} />
             <p>Product Name: {product.name}</p>
-            <p>Price: {product.price}</p>
+            <p>Price: {product.price} SEK</p>
             <button onClick={() => handleEditProduct(product)}>Edit</button>
             <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
           </div>

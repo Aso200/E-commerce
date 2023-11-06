@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AdminProducts from './AdminProducts';
 import AdminOrders from './AdminOrders';
 import AdminAddProduct from './AdminAddProduct';

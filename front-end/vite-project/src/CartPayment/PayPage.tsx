@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { CartItems } from '../Cart/MiniCart';
 import PaymentForm from './PaymentForm';
 import SwishPayPage from './SwishPayPage';
 import { useNavigate } from 'react-router-dom';
@@ -233,7 +232,9 @@ function PayPage(props: any) {
           <button id="swishBtn" className="paymentBtn" onClick={selectedSwishPay}>
             <img src="https://www.vectorlogo.zone/logos/getswishse/getswishse-ar21.png" alt="Swish" />
           </button>
-          <p style={{ width: "100%", textAlign: "center" }}>Please select a payment method</p>
+          {!selectedPayment && (
+  <p style={{ width: "100%", textAlign: "center" }}>Please select a payment method</p>
+)}
           {selectedPayment === 'masterCard' && showPaymentForm && (
             <PaymentForm onValidChange={(isValid) => setValidCard(isValid)} />
           )}

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CartItems } from '../Cart/MiniCart';
 import './CartPaymentPage.css';
 import { Link } from 'react-router-dom';
+
+
 
 function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: (updatedCart: CartItems[]) => void }) {
   const [cartItems, setCartItems] = useState(cart);
@@ -15,10 +17,11 @@ function CartPaymentPage({ cart, updateCart }: { cart: CartItems[], updateCart: 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     for (const cartItem of cartItems) {
-      totalPrice += cartItem.price.$numberInt * cartItem.quantity;
+      const priceNumber = parseInt(cartItem.price.$numberInt, 10);
+      totalPrice += priceNumber * cartItem.quantity;
     }
     return totalPrice;
-  };
+  }
 
   const minusQuantity = (index: number) => {
     const updatedCart = [...cartItems];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Mainpage from './Mainpage/Mainpage';
 import Products from './Products/Products';
@@ -7,6 +7,7 @@ import Header from './Header';
 import CartPaymentPage from './CartPayment/CartPaymentPage';
 import PayPage from './CartPayment/PayPage';
 import { Product } from './Products/Product'; 
+import { CartItem } from './Cart/CartItems'; 
 import Login from './Users/Login';
 import Dashboard from './Pages/dashboard';
 import Registration from './Users/register';
@@ -15,11 +16,11 @@ import AdminDashboard from './Admin/admindashboard';
 import OrderComplete from './CartPayment/OrderComplete';
 
 function App() {
-  const updateCart = (updatedCart: Product[]) => {
+  const updateCart = (updatedCart: CartItem[]) => {
     setCart(updatedCart);
   };
 
-  const [cart, setCart] = useState<Product[]>(() => {
+  const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const storedCart = localStorage.getItem('cart');
       return storedCart ? JSON.parse(storedCart) : [];
@@ -49,21 +50,24 @@ function App() {
 
   const addToCart = (productToAdd: Product) => {
     const existingProductIndex = cart.findIndex(
-      (product) =>
-        product._id === productToAdd._id && product.selectedSize === productToAdd.selectedSize
+      (item) =>
+        item._id === productToAdd._id && item.selectedSize === productToAdd.selectedSize
     );
   
     if (existingProductIndex !== -1) {
       const updatedCart = [...cart];
-      updatedCart[existingProductIndex] = {
-        ...updatedCart[existingProductIndex],
-        quantity: updatedCart[existingProductIndex].quantity + 1,
-      };
+      if (updatedCart[existingProductIndex]) {
+        updatedCart[existingProductIndex] = {
+          ...updatedCart[existingProductIndex],
+          quantity: (updatedCart[existingProductIndex].quantity || 0) + 1,
+          selectedSize: productToAdd.selectedSize || '',
+        };
+      }
       setCart(updatedCart);
     } else {
       const updatedCart = [
         ...cart,
-        { ...productToAdd, quantity: 1, selectedSize: productToAdd.selectedSize },
+        { ...productToAdd, quantity: 1, selectedSize: productToAdd.selectedSize || '' }, 
       ];
   
       try {
@@ -73,7 +77,7 @@ function App() {
         console.error('Fel vid spara av varukorg i localStorage:', error);
       }
     }
-  };
+  }
 
   return (
     <Router>

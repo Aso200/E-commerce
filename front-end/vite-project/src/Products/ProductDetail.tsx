@@ -3,7 +3,7 @@ import './ProductDetail.css';
 import CustomButton from './CustomButton';
 import InputLabelSelect from './InputLabelSelect';
 import FormControl from '@mui/material/FormControl';
-import Product from './Product';
+import { Product } from '../Products/Product';
 
 interface ProductDetailProps {
   product: Product; 

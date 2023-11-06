@@ -1,4 +1,4 @@
-export interface Product {
+export interface CartItem {
   _id: string;
   category: string;
   name: string;
@@ -11,5 +11,6 @@ export interface Product {
     $numberInt: string;
   };
   image: string;
-  selectedSize?: string; // Add selectedSize as an optional property
+  selectedSize: string;
+  quantity: number;
 }
